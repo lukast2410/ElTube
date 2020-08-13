@@ -1,0 +1,42 @@
+<div class="channel-list">
+    <div id="channel-detail-left">
+        <a [routerLink]="['/channel', channel.channel_link]" routerLinkActive="router-link-active" class="channel-list-link">
+            <div class="channel-icon-container">
+                <img src="{{ channel.icon_path }}" alt="">
+            </div>
+            <div id="channel-name-subs">
+                <p id="channel-name">
+                    {{ channel.name }}
+                    <!-- Lukas Tanto -->
+                </p>
+                <p id="channel-subscriber">
+                    {{ data.shortenThousand(channel.subscriber) }} subscribers
+                    <!-- 10 subscribers -->
+                    <span class="symbol"><i class="fas fa-circle"></i></span>
+                    {{ channelVideos.length }} videos
+                </p>
+                <p id="channel-description">
+                    {{ channel.description }}
+                </p>
+            </div>
+        </a>
+    </div>
+    <div id="channel-detail-right" *ngIf="!isUser">
+        <div id="subs-btn-container" *ngIf="!subscribed">
+            <button id="subscribe-btn" (click)="likeDislikeVideo('subscribe')">
+                SUBSCRIBE
+            </button>
+        </div>
+        <div id="unsubs-btn-container" *ngIf="subscribed">
+            <button id="unsubscribe-btn" (click)="likeDislikeVideo('subscribe')">
+                SUBSCRIBED
+            </button>
+            <button id="notif-toggle">
+                <i class="fas fa-bell"></i>
+                <div class="notif-info">
+                    <span>Notification On</span>
+                </div>
+            </button>
+        </div>
+    </div>
+</div>

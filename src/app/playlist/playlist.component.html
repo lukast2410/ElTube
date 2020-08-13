@@ -1,0 +1,204 @@
+<div id="playlist-page">
+    <div id="playlist-information">
+        <div id="thumbnail-playlist">
+            <a [routerLink]="['/watch', videos[0].id, {playlist: playlist.id} ]" routerLinkActive="router-link-active" 
+            id="thumbnail-link"  *ngIf="videos.length > 0">
+                <img src="{{ videos[0].thumbnail_path }}" alt="">
+                <div id="play-first-video">
+                    <i class="fas fa-play"></i>
+                    <span>PLAY ALL</span>
+                </div>
+            </a>
+        </div>
+        <div id="playlist-title">
+            <div id="playlist-title-container" *ngIf="!editPlaylistName">
+                <p>{{ playlist.name }}</p>
+                <i class="far fa-edit" (click)="toggleEditPlaylistName('open')" *ngIf="isUser"></i>
+            </div>
+            <div id="playlist-name-form" *ngIf="editPlaylistName">
+                <input type="text" name="playlist-name" id="playlist-name" [value]="playlistName" 
+                    (input)="playlistName = $event.target.value" placeholder="Title" 
+                    [style.borderBottom]="playlistName == ''? 'solid red 2px' : 'solid grey 2px'">
+                <div class="submit-edit-playlist">
+                    <div class="cancel-btn" (click)="toggleEditPlaylistName('cancel')">
+                        CANCEL
+                    </div>
+                    <div class="save-btn" (click)="saveEditPlaylist('name')">
+                        SAVE
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="playlist-view">
+            <p>
+                {{ playlistVideos.length }} videos
+                <span class="symbol"><i class="fas fa-circle"></i></span>
+                {{ playlist.views }} views
+                <span class="symbol"><i class="fas fa-circle"></i></span>
+                {{ data.formatLastUpdated(playlist) }}
+            </p>
+        </div>
+        <div id="playlist-privacy" *ngIf="isUser">
+            <label>
+                <select name="select-playlist-privacy" id="select-playlist-privacy" 
+                [selectedIndex]="selectVis" (change)="changePrivacy($event.target.value)">
+                    <option value="private">Private</option>
+                    <option value="public">Public</option>
+                </select>
+                <i class="fas fa-chevron-down"></i>
+            </label>
+        </div>
+        <div id="playlist-fiture">
+            <div class="fiture-item" (click)="randomVideos()">
+                <i class="fas fa-random"></i>
+                <div class="fiture-hover">
+                    Random Video
+                </div>
+            </div>
+            <div class="fiture-item">
+                <i class="fas fa-share"></i>
+                <div class="fiture-hover">
+                    Share
+                </div>
+            </div>
+            <div class="fiture-item" *ngIf="isUser" (click)="removeAllVideos()">
+                <i class="fas fa-trash-alt"></i>
+                <div class="fiture-hover">
+                    Remove All Videos
+                </div>
+            </div>
+            <div class="fiture-item" *ngIf="isUser" (click)="deletePlaylist()">
+                <i class="fas fa-ban"></i>
+                <div class="fiture-hover">
+                    Delete Playlist
+                </div>
+            </div>
+        </div>
+        <div id="playlist-description">
+            <div id="playlist-desc-container" *ngIf="!editPlaylistDesc">
+                <p *ngIf="playlist.description != ''">{{ playlist.description }}</p>
+                <p *ngIf="playlist.description == ''">No description</p>
+                <i class="far fa-edit" (click)="toggleEditPlaylistDesc('open')" *ngIf="isUser"></i>
+            </div>
+            <div id="playlist-description-form" *ngIf="editPlaylistDesc">
+                <input type="text" name="playlist-description" id="playlist-description" [value]="playlistDesc" 
+                    (input)="playlistDesc = $event.target.value" placeholder="Description">
+                <div class="submit-edit-playlist">
+                    <div class="cancel-btn" (click)="toggleEditPlaylistDesc('cancel')">
+                        CANCEL
+                    </div>
+                    <div class="save-btn" (click)="saveEditPlaylist('desc')">
+                        SAVE
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="playlist-channel">
+            <div id="channel-detail-left">
+                <a [routerLink]="['/channel', channel.channel_link]" routerLinkActive="router-link-active" >
+                    <img src="{{ channel.icon_path }}" alt="">
+                    <div id="channel-name-subs">
+                        <p id="channel-name">
+                            {{ channel.name }}
+                            <!-- Lukas Tanto -->
+                        </p>
+                    </div>
+                </a>
+            </div>
+            <div id="channel-detail-right" *ngIf="!user || channel.user_id != user.id">
+                <div id="subs-btn-container" *ngIf="!subscribed">
+                    <button id="subscribe-btn" (click)="subscribeChannel()">
+                        SUBSCRIBE
+                    </button>
+                </div>
+                <div id="unsubs-btn-container" *ngIf="subscribed">
+                    <button id="unsubscribe-btn" (click)="subscribeChannel()">
+                        SUBSCRIBED
+                    </button>
+                    <button id="notif-toggle">
+                        <i class="fas fa-bell"></i>
+                        <div class="notif-info">
+                            <span>Notification On</span>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="playlist-video-list">
+        <div id="playlist-video-container">
+            <div id="sort-by" (click)="toggleShowSort()" *ngIf="isUser">
+                <i class="fas fa-sort"></i>
+                <span>SORT BY</span>
+                <div id="sort-container">
+                    <div id="most-popular" class="sort-item" (click)="sortPlaylistVideos('views')">
+                        Most popular
+                    </div>
+                    <div id="oldest-added" class="sort-item" (click)="sortPlaylistVideos('added-oldest')">
+                        Date added (oldest)
+                    </div>
+                    <div id="newest-added" class="sort-item" (click)="sortPlaylistVideos('added-newest')">
+                        Date added (newest)
+                    </div>
+                    <div id="oldest-published" class="sort-item" (click)="sortPlaylistVideos('publish-oldest')">
+                        Date published (oldest)
+                    </div>
+                    <div id="newest-published" class="sort-item" (click)="sortPlaylistVideos('publish-newest')">
+                        Date published (newest)
+                    </div>
+                </div>
+            </div>
+            <div class="playlist-videos" *ngFor="let vid of videos, let i = index">
+                <app-playlist-list [video]="vid" [playlist]="playlist" [idx]="i" 
+                (act)="actFromBox($event)" *ngIf="i < lastKey"></app-playlist-list>
+            </div>
+            <div class="footer-scroll"></div>
+        </div>
+    </div>
+</div>
+<div id="edit-video-container" *ngIf="savePlaylist">
+    <div id="save-playlist" *ngIf="savePlaylist">
+        <div class="edit-header">
+            <span>Save to..</span>
+            <i class="fas fa-times" (click)="toggleSavePlaylist()"></i>
+        </div>
+        <div id="list-playlist">
+            <div class="playlist-item" *ngFor="let pl of myPlaylists, let i = index">
+                <label>
+                    <input type="checkbox" name="playlist-list" (change)="saveToPlaylist($event)" 
+                    [checked]="checkPlaylistList(pl)" [value]="i">
+                    <span [innerText]="pl.name"></span>
+                </label>
+            </div>
+        </div>
+        <div id="create-playlist-container">
+            <div id="create-playlist" *ngIf="!showCreatePlaylist" (click)="toggleShowCreatePlaylist()">
+                <i class="fas fa-plus"></i>
+                <span>Create new playlist</span>
+            </div>
+            <div id="create-playlist-form" *ngIf="showCreatePlaylist">
+                <div id="input-playlist-name">
+                    <label for="playlist-name">Name</label><br>
+                    <input type="text" name="playlist-name" id="playlist-name" [value]="myPlaylistName" 
+                    (input)="myPlaylistName = $event.target.value" placeholder="Enter playlist name..">
+                </div>
+                <div id="input-playlist-privacy">
+                    <label>
+                        <p>Privacy</p>
+                        <select name="select-playlist-privacy" id="select-playlist-privacy" [selectedIndex]="1">
+                            <option value="private">Private</option>
+                            <option value="public">Public</option>
+                        </select>
+                        <i class="fas fa-chevron-down"></i>
+                    </label>
+                </div>
+                <div class="edit-submit">
+                    <button class="edit-done" (click)="validateCreatePlaylist()">
+                        Create
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

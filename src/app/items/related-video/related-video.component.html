@@ -1,0 +1,41 @@
+<div id="related-video-box">
+    <a href="/watch/{{ video.id }}">
+        <div id="thumbnail-related-video">
+            <img src="{{ video.thumbnail_path }}" alt="">
+            <div id="related-video-length">
+                <span >{{ duration }}</span>
+            </div>
+        </div>
+        <div id="related-video-center">
+            <p id="related-video-title">
+                {{ video.title }}
+            </p>
+            <div id="related-video-channel">
+                <a href="">
+                    {{ channelName }}
+                </a>
+            </div>
+            <p id="related-video-views">
+                {{ data.shortenThousand(video.views) }} views
+                <span id="symbol"><i class="fas fa-circle"></i></span>
+                <span id="related-video-date">{{ publishDate }}</span>
+            </p>
+        </div>
+    </a>
+    <div id="related-video-right">
+        <button id="related-video-setting-btn" (click)="toggleAddSave()">
+            <i class="fas fa-ellipsis-v" id="video-detail-setting"></i>
+        </button>
+        <div class="add-save-video" *ngIf="addSave">
+            <div class="add-save" (click)="addQueue()">
+                <i class="fas fa-stream"></i>
+                <span>Add to Queue</span>
+            </div>
+            <div class="add-save" (click)="doAct('save')">
+                <i class="far fa-plus-square"></i>
+                <span>Save to playlist</span>
+            </div>
+        </div>
+    </div>
+</div>
+    

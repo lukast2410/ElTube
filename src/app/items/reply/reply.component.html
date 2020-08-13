@@ -1,0 +1,55 @@
+<div class="reply-items">
+    <div class="reply-item-left">
+        <img src="{{ replyUser.photourl }}" alt="">
+    </div>
+    <div class="reply-item-right">
+        <div class="name-date">
+            <div class="replyer-name">
+                {{ replyUser.name }}
+                <!-- Lukas Tanto -->
+            </div>
+            <p>
+                <!-- 1 second ago -->
+                {{ data.formatPublishDate(reply) }}
+            </p>
+        </div>
+        <div class="reply-content">
+            <p>
+                <!-- Testing -->
+                {{ reply.content }}
+            </p> 
+        </div>
+        <div class="reply-fitur">
+            <div (click)="likeDislikeReply('like comment')" [style.color]="like? '#1e90ff' : '#929292'">
+                {{ data.shortenThousand(reply.like) }}
+                <i class="fas fa-thumbs-up"></i>
+            </div>
+            <div (click)="likeDislikeReply('dislike comment')" [style.color]="dislike? '#1e90ff' : '#929292'">
+                {{ data.shortenThousand(reply.dislike) }}
+                <i class="fas fa-thumbs-down"></i>
+            </div>
+            <div class="reply-reply-button" (click)="toggleReplyForm('hei')">
+                REPLY
+            </div>
+        </div>
+        <div class="reply-reply-form" *ngIf="showReplyForm">
+            <div class="reply-form-left">
+                <img src="{{ user.photourl }}" alt="">
+            </div>
+            <div class="reply-form-right">
+                <input type="text" name="input-reply" id="input-reply" [value]="inputReply" 
+                    (input)="inputReply = $event.target.value" placeholder="Add a public reply..">
+                <div class="submit-reply-form">
+                    <div class="cancel-btn" (click)="toggleReplyForm('cancel')">
+                        CANCEL
+                    </div>
+                    <div class="save-btn" [style.backgroundColor]="inputReply != ''? 'rgb(0, 87, 187)' : '#afafaf'"
+                    (click)="createReply()">
+                        REPLY
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,165 @@
+#subscription-page{
+    display: flex;
+    width: 100%;
+    padding: 1vh 0 0 0;
+    margin-top: 56px;
+
+    p{
+        margin: 0;
+    }
+}
+
+#subscription-page-container{
+    margin: 0 5%;
+    width: 100%;
+
+    .section-theme{
+        margin-top: 3.5vh;
+        font-size: 16px;
+        color: black;
+        font-weight: bold;
+        width: 100%;
+        padding-bottom: 15px;
+        border-bottom: solid grey 0.5px;
+        margin-bottom: 2vh;
+    }
+
+    .section-videos{
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+
+        .video-box-container{
+            margin: 0 1vw;
+        }
+    }
+}
+
+.footer-scroll{
+    height: 10px;
+}
+
+#edit-video-container{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1000;
+    background-color: rgba(22, 22, 22, 0.712);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 20px;
+
+    .edit-header{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px;
+
+        i{
+            cursor: pointer;
+            padding: 4px;
+        }
+    }
+    
+    .edit-submit{
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        padding: 10px;
+        
+        .edit-done{
+            background-color: rgb(0, 87, 187);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            padding: 7px 25px;
+            border: none;
+            border-radius: 3px;
+            color: white;
+            font-weight: bold;
+
+            &:hover{
+                cursor: pointer;
+            }
+        }
+    }
+
+    #save-playlist{
+        width: max-content;
+        background-color: white;
+        border: solid grey 0.5px;
+        border-radius: 3px;
+        color: rgb(85, 85, 85);
+
+        .playlist-item{
+            padding: 7px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            
+            label{
+
+                span{
+                    margin-left: 5px;
+                    font-size: 15px;
+                }
+            }
+        }
+
+        #create-playlist-container{
+            border-top: solid grey 1px;
+            padding: 7px 10px;
+
+            #create-playlist{
+                cursor: pointer;
+                font-size: 15px;
+                color: rgb(85, 85, 85);
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+                
+                span{
+                    margin-left: 5px;
+                }
+
+                &:active{
+                    background-color: rgb(211, 211, 211);
+                }
+            }
+
+            #create-playlist-form{
+
+                #input-playlist-name{
+                    label{
+                        font-size: 13px;
+                        color: black;
+                    }
+
+                    input{
+                        border: none;
+                        outline: none;
+                        border-bottom: solid grey 2px;
+                        width: 100%;
+                    }
+                }
+
+                #input-playlist-privacy{
+                    margin-top: 10px;
+                    font-size: 13px;
+
+                    p{
+                        margin: 0;
+                        margin-bottom: 10px;
+                        color: black;
+                    }
+
+                    #select-playlist-privacy{
+                        width: 160px;
+                        border: none;
+                        font-size: 13px;
+                        color: rgb(85, 85, 85);
+                        -webkit-appearance: none;
+                    }
+                }
+            }
+        }
+    }
+}

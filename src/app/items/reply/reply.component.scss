@@ -1,0 +1,136 @@
+.reply-items{
+    display: flex;
+    width: 100%;
+    color: rgb(93, 93, 93);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    
+    p{
+        margin: 0;
+    }
+
+    .reply-item-left{
+        img{
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+        }
+    }
+
+    .reply-item-right{
+        margin-left: 10px;
+        width: 100%;
+
+        .name-date{
+            display: flex;
+            font-size: 12px;
+
+            .replyer-name{
+                color: white;
+                background-color: rgb(93, 93, 93);
+                padding: 0 5px;
+                border-radius: 10px;
+            }
+
+            p{
+                margin-left: 5px;
+            }
+        }
+
+        .reply-content{
+            width: 100%;
+            margin-top: 2px;
+
+            p{
+                width: 100%;
+                color: black;
+                font-size: 15px;
+                word-wrap: break-word;
+            }
+        }
+
+        .reply-fitur{
+            margin: 10px 0;
+            display: flex;
+            align-items: center;
+            width: 100%;
+            font-size: 13px;
+
+            i{
+                padding: 5px;
+                margin-right: 10px;
+                cursor: pointer;
+            }
+
+            .reply-reply-button{
+                background-color: inherit;
+                padding: 5px 15px;
+                cursor: pointer;
+
+                &:active{
+                    background-color: rgb(184, 184, 184);
+                }
+            }
+        }
+
+        .reply-reply-form{
+            display: flex;
+            width: 100%;
+            
+            .submit-reply-form{
+                display: flex;
+                justify-content: flex-end;
+                align-items: center;
+                margin-top: 5px;
+        
+                div{
+                    cursor: pointer;
+                    font-size: 14px;
+                    padding: 8px 15px;
+        
+                    &:active{
+                        background-color: rgb(206, 206, 206);
+                    }
+                }
+        
+                .cancel-btn{
+                    color: rgb(82, 82, 82);
+                    font-weight: bold;
+                }
+        
+                .save-btn{
+                    color: white;
+                    font-weight: bold;
+                    margin-left: 5px;
+                    border-radius: 5px;
+                }
+            }
+        }
+
+        .reply-form-left{
+            img{
+                width: 30px;
+                height: 30px;
+                border-radius: 50%;
+            }
+        }
+
+        .reply-form-right{
+            width: 100%;
+            margin-left: 10px;
+
+            input{
+                background-color: inherit;
+                border: none;
+                outline: none;
+                width: 100%;
+                font-size: 14px;
+                border-bottom: solid grey 2px;
+                padding: 3px 0;
+
+                &:focus{
+                    border-bottom: solid black 2px;
+                }
+            }   
+        }
+    }
+}

@@ -1,0 +1,40 @@
+<div id="channel-about">
+    <div id="channel-about-container">
+        <div id="channel-about-left">
+            <div id="about-description" class="about-section" *ngIf="user && channel.user_id == user.id || channel.description != ''">
+                <div class="about-section-title">Description</div>
+                <div id="description-content">
+                    <div id="show-desc" [style.display]="editDesc? 'none' : 'block'">
+                        <p>{{ channel.description }}</p>
+                        <div class="btn-container" *ngIf="channel.user_id == user.id"  [style.justifyContent]="channel.description == ''? 'flex-start' : 'flex-end'">
+                            <button (click)="toggleEditDesc(true)" *ngIf="channel.description == ''">Add Description</button>
+                            <button (click)="toggleEditDesc(true)" *ngIf="channel.description != ''">Edit Description</button>
+                        </div>
+                    </div>
+                    <div id="edit-desc" *ngIf="channel.user_id == user.id" [style.display]="editDesc? 'block' : 'none'">
+                        <textarea name="edit-channel-desc" id="edit-channel-desc" cols="30" rows="7"></textarea>
+                        <div class="btn-container">
+                            <button (click)="toggleEditDesc(false)">Cancel</button>
+                            <button id="done-edit-desc" (click)="editDescription()">Done</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="about-shared-links" class="about-section">
+                <div class="about-section-title">Shared Links</div>
+                <a [routerLink]="['/channel', channel.channel_link]" routerLinkActive="router-link-active" id="about-links">
+                        Channel link
+                </a>
+            </div>
+        </div>
+        <div id="channel-about-right">
+            <div class="about-section-title" id="stats-title">Stats</div>
+            <div class="about-section-item">
+                Joined {{ data.formatDate(channel) }}
+            </div>
+            <div class="about-section-item">
+                {{ data.shortenComa(views) }} views
+            </div>
+        </div>
+    </div>
+</div>

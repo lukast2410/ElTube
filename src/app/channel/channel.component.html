@@ -1,0 +1,81 @@
+<div id="channel-page">
+    <div id="channel-top">
+        <div id="channel-art">
+            <img src="{{ channel.art_path }}" alt="" *ngIf="channel.art_path != ''">
+        </div>
+        <div id="channel-profile">
+            <div id="channel-profile-detail">
+                <div id="channel-profile-detail-left">
+                    <div id="channel-icon">
+                        <img src="{{ channel.icon_path }}" alt="">
+                        <!-- <img src="../../assets/account.jpg" alt=""> -->
+                    </div>
+                    <div id="channel-name-subs">
+                        <p id="channel-name">
+                            <!-- askjdbsadjkb -->
+                            {{ channel.name }}
+                        </p>
+                        <p id="channel-subs-count">
+                            {{ data.shortenThousand(channel.subscriber) }} subscribers
+                            <!-- 0 subscribers -->
+                        </p>
+                    </div>
+                </div>
+                <div id="channel-subs-btn">
+                    <div id="sub-unsub-container" *ngIf="!user || channel.user_id != user.id">
+                        <div id="subs-btn-container" *ngIf="!subscribed">
+                            <button id="subscribe-btn" (click)="subscribeChannel()">
+                                SUBSCRIBE
+                            </button>
+                        </div>
+                        <div id="unsubs-btn-container" *ngIf="subscribed">
+                            <button id="unsubscribe-btn" (click)="subscribeChannel()">
+                                SUBSCRIBED
+                            </button>
+                            <button id="notif-toggle">
+                                <i class="fas fa-bell"></i>
+                                <div class="notif-info">
+                                    <span>Notification On</span>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                    <div id="change-channel-profile" *ngIf="user && channel.user_id == user.id">
+                        <label for="input-icon">Change Icon</label>
+                        <input type="file" name="input-image" id="input-icon" (change)="uploadThumbnail($event.target.files, 'change-icon')" style="display: none;">
+                        <label for="input-art">Change Art</label>
+                        <input type="file" name="input-image" id="input-art" (change)="uploadThumbnail($event.target.files, 'change-art')" style="display: none;">
+                        <div id="buang-ajaaa" *ngIf="thumbnailSnap | async as snap" style="display: none;">
+                            {{ snap.bytesTransferred }} of {{ snap.totalBytes }}
+                        </div>
+                        <div id="upload-thumbnail-progress" *ngIf="thumbnailPercentage | async as pct" style="display: none;">
+                            <progress [value]="pct" max="100"></progress>
+                            {{ pct | number }}%
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="channel-tab-sticky">
+        <div id="channel-tab-view">
+            <div id="home-tab-view" class="tab-view-item" (click)="toggleSelectionBar('home')">
+                HOME
+            </div>
+            <div id="videos-tab-view" class="tab-view-item" (click)="toggleSelectionBar('videos')">
+                VIDEOS
+            </div>
+            <div id="playlists-tab-view" class="tab-view-item" (click)="toggleSelectionBar('playlists')">
+                PLAYLISTS
+            </div>
+            <div id="community-tab-view" class="tab-view-item" (click)="toggleSelectionBar('community')">
+                COMMUNITY
+            </div>
+            <div id="about-tab-view" class="tab-view-item" (click)="toggleSelectionBar('about')">
+                ABOUT
+            </div>
+            <div id="animation"></div>
+        </div>
+    </div>
+    <router-outlet></router-outlet>
+</div>

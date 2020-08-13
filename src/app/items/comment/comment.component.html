@@ -1,0 +1,63 @@
+<div class="comment-items">
+    <div class="comment-item-left">
+        <img src="{{ commentUser.photourl }}" alt="">
+    </div>
+    <div class="comment-item-right">
+        <div class="name-date">
+            <div class="commenter-name">
+                {{ commentUser.name }}
+                <!-- Lukas Tanto -->
+            </div>
+            <p>
+                <!-- 1 second ago -->
+                {{ data.formatPublishDate(comment) }}
+            </p>
+        </div>
+        <div class="comment-content">
+            <p>
+                <!-- Testing -->
+                {{ comment.content }}
+            </p> 
+        </div>
+        <div class="comment-fitur">
+            <div (click)="likeDislikeComment('like comment')" [style.color]="like? '#1e90ff' : '#929292'">
+                {{ data.shortenThousand(comment.like) }}
+                <i class="fas fa-thumbs-up"></i>
+            </div>
+            <div (click)="likeDislikeComment('dislike comment')" [style.color]="dislike? '#1e90ff' : '#929292'">
+                {{ data.shortenThousand(comment.dislike) }}
+                <i class="fas fa-thumbs-down"></i>
+            </div>
+            <div class="reply-comment-button" (click)="toggleReplyForm('hei')">
+                REPLY
+            </div>
+        </div>
+        <div class="reply-comment-form" *ngIf="showReplyForm">
+            <div class="reply-form-left">
+                <img src="{{ user.photourl }}" alt="">
+            </div>
+            <div class="reply-form-right">
+                <input type="text" name="input-reply" id="input-reply" [value]="inputReply" 
+                    (input)="inputReply = $event.target.value" placeholder="Add a public reply..">
+                <div class="submit-reply-form">
+                    <div class="cancel-btn" (click)="toggleReplyForm('cancel')">
+                        CANCEL
+                    </div>
+                    <div class="save-btn" [style.backgroundColor]="inputReply != ''? 'rgb(0, 87, 187)' : '#afafaf'"
+                    (click)="replyComment()">
+                        REPLY
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="reply-dropdown" (click)="showReplies()" *ngIf="replies.length > 0">
+            <p *ngIf="!showReply" id="view-reply-text">View {{ replies.length }} replies</p>
+            <p *ngIf="showReply" id="hide-reply-text">Hide {{ replies.length }} replies</p>
+        </div>
+        <div class="video-replies-container" *ngIf="showReply">
+            <div class="video-replies" *ngFor="let rep of replies, let i = index">
+                <app-reply [reply]="rep" (replyComment)="replyReply($event)" (act)="likeDislikeReply($event)"></app-reply>
+            </div>
+        </div>
+    </div>
+</div>

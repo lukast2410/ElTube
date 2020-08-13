@@ -1,0 +1,193 @@
+<div id="sidebar" (click)="check()">
+    <!-- <div id="thin-side-bar">
+        <div class="thin-side-bar-items" >
+            <a href=""  id="thin-side-bar-home" (click)="sideBarClicked('thin-home')">
+                <div>
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </div>
+            </a>
+        </div>
+        <div id="thin-side-bar-trending" class="thin-side-bar-items">
+            <a href="">
+                <div>
+                    <i class="fas fa-fire"></i>
+                    <span>Trending</span>
+                </div>
+            </a>
+        </div>
+        <div id="thin-side-bar-subscription" class="thin-side-bar-items">
+            <a href="">
+                <div>
+                    <i class="fas fa-forward"></i>
+                    <span>Subscription</span>
+                </div>
+            </a>
+        </div>
+        <div id="thin-side-bar-library" class="thin-side-bar-items">
+            <a href="">
+                <div>
+                    <i class="fas fa-clone"></i>
+                    <span>Library</span>
+                </div>
+            </a>
+        </div>
+    </div> -->
+    <div id="wide-side-bar">
+        <div id="main-section" class="wide-side-bar-sections">
+            <div id="wide-side-bar-home" class="wide-side-bar-items">
+                <a [routerLink]="['/home']" routerLinkActive="router-link-active" (click)="navbar.barsClicked()"
+                [style.color]="isHome? 'red' : 'rgb(68, 68, 68)'">
+                    <div>
+                        <i class="fas fa-home"></i>
+                        <span>Home</span>
+                    </div>
+                </a>
+            </div>
+            <div id="wide-side-bar-trending" class="wide-side-bar-items">
+                <a [routerLink]="['/trending']" routerLinkActive="router-link-active" (click)="navbar.barsClicked()"
+                [style.color]="isTrending? 'red' : 'rgb(68, 68, 68)'">
+                    <div>
+                        <i class="fas fa-fire"></i>
+                        <span>Trending</span>
+                    </div>
+                </a>
+            </div>
+            <div id="wide-side-bar-subscription" class="wide-side-bar-items" *ngIf="user">
+                <a [routerLink]="['/subscription']" routerLinkActive="router-link-active" (click)="navbar.barsClicked()"
+                [style.color]="isSubscription? 'red' : 'rgb(68, 68, 68)'">
+                    <div>
+                        <i class="fas fa-forward"></i>
+                        <span>Subscription</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div id="category-section" class="wide-side-bar-sections">
+            <div class="title-section">
+                <span>BEST OF ELTUBE</span>
+            </div>
+            <div id="wide-side-bar-music" class="wide-side-bar-items">
+                <a [routerLink]="['/category', 'music']" routerLinkActive="router-link-active" (click)="navbar.barsClicked()"
+                [style.color]="isMusic? 'red' : 'rgb(68, 68, 68)'">
+                    <div>
+                        <i class="fas fa-headphones"></i>
+                        <span>Music</span>
+                    </div>
+                </a>
+            </div>
+            <div id="wide-side-bar-gaming" class="wide-side-bar-items">
+                <a [routerLink]="['/category', 'gaming']" routerLinkActive="router-link-active" (click)="navbar.barsClicked()"
+                [style.color]="isGaming? 'red' : 'rgb(68, 68, 68)'">
+                    <div>
+                        <i class="fas fa-gamepad"></i>
+                        <span>Gaming</span>
+                    </div>
+                </a>
+            </div>
+            <div id="wide-side-bar-news" class="wide-side-bar-items">
+                <a [routerLink]="['/category', 'news']" routerLinkActive="router-link-active" (click)="navbar.barsClicked()"
+                [style.color]="isNews? 'red' : 'rgb(68, 68, 68)'">
+                    <div>
+                        <i class="fas fa-newspaper"></i>
+                        <span>News</span>
+                    </div>
+                </a>
+            </div>
+            <div id="wide-side-bar-entertainment" class="wide-side-bar-items">
+                <a [routerLink]="['/category', 'entertainment']" routerLinkActive="router-link-active" (click)="navbar.barsClicked()"
+                [style.color]="isEntertainment? 'red' : 'rgb(68, 68, 68)'">
+                    <div>
+                        <i class="fas fa-film"></i>
+                        <span>Entertainment</span>
+                    </div>
+                </a>
+            </div>
+            <div id="wide-side-bar-sport" class="wide-side-bar-items">
+                <a [routerLink]="['/category', 'sport']" routerLinkActive="router-link-active" (click)="navbar.barsClicked()"
+                [style.color]="isSport? 'red' : 'rgb(68, 68, 68)'">
+                    <div>
+                        <i class="fas fa-futbol"></i>
+                        <span>Sport</span>
+                    </div>
+                </a>
+            </div>
+            <div id="wide-side-bar-travel" class="wide-side-bar-items">
+                <a [routerLink]="['/category', 'travel']" routerLinkActive="router-link-active" (click)="navbar.barsClicked()"
+                [style.color]="isTravel? 'red' : 'rgb(68, 68, 68)'">
+                    <div>
+                        <i class="fas fa-plane"></i>
+                        <span>Travel</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div id="after-login" *ngIf="loggedIn">
+            <div id="playlist-section" class="wide-side-bar-sections">
+                <div class="title-section">
+                    <span>PLAYLISTS</span>
+                </div>
+                <div class="wide-side-bar-items" *ngFor="let pl of playlists, let i = index">
+                    <a [routerLink]="['/playlist', pl.id]" routerLinkActive="router-link-active" 
+                    (click)="navbar.barsClicked()" *ngIf="i < lastKeyPlaylist">
+                        <div>
+                            <i class="fas fa-tags"></i>
+                            <span [innerText]="pl.name"></span>
+                        </div>
+                    </a>
+                </div>
+                <div class="show-more" *ngIf="playlists.length > 5" (click)="toggleShowPlaylist()">
+                    <span class="show" *ngIf="!showPlaylist">SHOW MORE</span>
+                    <span class="hide" *ngIf="showPlaylist">HIDE</span>
+                </div>
+            </div>
+            <div id="subscriptions-section" class="wide-side-bar-sections">
+                <div class="title-section">
+                    <span>SUBSCRIPTIONS</span>
+                </div>
+                <div class="wide-side-bar-subscriptions" *ngFor="let cn of channels, let i = index">
+                    <a [routerLink]="['/channel', cn.channel_link]" routerLinkActive="router-link-active" 
+                    (click)="navbar.barsClicked()" *ngIf="i < lastKeySubscription">
+                        <div>
+                            <img src="{{ cn.icon_path }}" alt="">
+                            <span [innerText]="cn.name"></span>
+                        </div>
+                    </a>
+                </div>
+                <div class="show-more" *ngIf="channels.length > 10" (click)="toggleShowSubscription()">
+                    <span class="show" *ngIf="!showSubscription">SHOW MORE</span>
+                    <span class="hide" *ngIf="showSubscription">HIDE</span>
+                </div>
+            </div>
+        </div>
+        <div id="membership-section" class="wide-side-bar-sections">
+            <div class="title-section">
+                <span>MEMBERSHIP</span>
+            </div>
+            <div id="wide-side-bar-membership" class="wide-side-bar-items">
+                <a [routerLink]="['/premium']" routerLinkActive="router-link-active" 
+                [style.color]="isPremium? 'red' : 'rgb(68, 68, 68)'">
+                    <div>
+                        <i class="fab fa-youtube"></i>
+                        <span>ElTube Premium</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div id="links-section" class="wide-side-bar-sections">
+            <div id="links-to-youtube">
+                <a href="https://www.youtube.com/about/">About</a>
+                <br>
+                <a href="https://www.youtube.com/t/terms">Terms</a>
+                <br>
+                <a href="https://policies.google.com/privacy?hl=en">Privacy</a> 
+                <br>
+                <a href="https://www.youtube.com/howyoutubeworks/policies/community-guidelines/">Policy & Terms</a>
+                <br>
+                <div>
+                    <span>Created by Lukas LT20-1</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

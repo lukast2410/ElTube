@@ -1,0 +1,207 @@
+<div id="video-detail-page">
+    <div id="watch-page-left">
+        <div id="video-flex-container">
+            <div id="video-container">
+                <!-- <video class="watch-video" src="{{ video.video_path}}"></video> -->
+                <video class="watch-video" src="{{ videoUrl }}" autoplay></video>
+                <div class="control-video">
+                    <div id="progress-bar">
+                        <div id="progress-video">
+                            <div id="progress-round">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="button-control">
+                        <div id="button-control-left">
+                            <button id="play-pause-video" (click)="togglePlayPause()">
+                                <i class="fas fa-play" *ngIf="pause"></i>
+                                <i class="fas fa-pause" *ngIf="!pause"></i>
+                            </button>
+                            <button id="volume-video" (click)="toggleMute()">
+                                <i class="fas fa-volume-up" *ngIf="!mute"></i>
+                                <i class="fas fa-volume-mute" *ngIf="mute"></i>
+                            </button>
+                            <input type="range" name="volume-slider" id="volume-slider" min="0" max="100">
+                            <span id="video-timestamp">{{timestamp}}</span>
+                        </div>
+                        <div id="button-control-left">
+                            <button id="fullscreen-video" (click)="toggleFullscreen()">
+                                <i class="fas fa-expand" *ngIf="!fullscreen"></i>
+                                <i class="fas fa-compress" *ngIf="fullscreen"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="watch-detail">
+            <div id="watch-detail-comp">
+                <div id="video-information">
+                    <div id="video-title">
+                        <p>{{ video.title }}</p>
+                    </div>
+                    <div id="detail-information">
+                        <div id="detail-information-left">
+                            <p id="detail-information-views">
+                                {{ data.shortenComa(video.views) }} views
+                                <!-- 50 views -->
+                                <span class="symbol"><i class="fas fa-circle"></i></span>
+                                <span id="detail-information-date">
+                                    {{ publishDate }}
+                                    <!-- 5 May 2020 -->
+                                </span>
+                            </p>
+                        </div>
+                        <div id="detail-information-right">
+                            <div id="video-like" class="video-likes-count" (click)="likeDislikeVideo('like')">
+                                <i class="fas fa-thumbs-up" [style.color]="like? '#1e90ff' : '#929292'"></i>
+                                <span id="like-count" [style.color]="like? '#1e90ff' : '#929292'">{{ data.shortenThousand(video.like) }}</span>
+                                <div class="likes-coma">
+                                    {{ data.shortenComa(video.like) }} Likes
+                                </div>
+                            </div>
+                            <div id="video-dislike" class="video-likes-count" (click)="likeDislikeVideo('dislike')">
+                                <i class="fas fa-thumbs-down" [style.color]="dislike? '#1e90ff' : '#929292'"></i>
+                                <span id="dislike-count" [style.color]="dislike? '#1e90ff' : '#929292'">{{ data.shortenThousand(video.dislike) }}</span>
+                                <div class="likes-coma">
+                                    {{ data.shortenComa(video.dislike) }} Dislikes
+                                </div>
+                            </div>
+                            <div id="video-share">
+                                <i class="fas fa-share"></i>
+                                <span id="share-button">SHARE</span>
+                            </div>
+                            <div id="video-playlist">
+                                <i class="fas fa-stream"></i>
+                                <span id="stream-button">SAVE</span>
+                            </div>
+                            <div id="like-animation"></div>
+                            <div id="dislike-animation"></div>
+                        </div>
+                    </div>
+                    <div id="channel-description">
+                        <div id="channel-detail">
+                            <div id="channel-detail-left">
+                                <img src="{{ channelIcon }}" alt="">
+                                <div id="channel-name-subs">
+                                    <p id="channel-name">{{ channelName }}</p>
+                                    <p id="channel-subscriber">{{ data.shortenThousand(channel.subscriber) }} subscribers</p>
+                                </div>
+                            </div>
+                            <div id="channel-detail-right" *ngIf="!user || channel.user_id != user.id">
+                                <div id="subs-btn-container" *ngIf="!subscribed">
+                                    <button id="subscribe-btn" (click)="likeDislikeVideo('subscribe')">
+                                        SUBSCRIBE
+                                    </button>
+                                </div>
+                                <div id="unsubs-btn-container" *ngIf="subscribed">
+                                    <button id="unsubscribe-btn" (click)="likeDislikeVideo('subscribe')">
+                                        SUBSCRIBED
+                                    </button>
+                                    <button id="notif-toggle">
+                                        <i class="fas fa-bell"></i>
+                                        <div class="notif-info">
+                                            <span>Notification On</span>
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="video-description">
+                            <p>{{ video.description }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="watch-comment-flex">
+            <div id="watch-comment-top">
+                <div id="watch-comment-theme">
+                    <p>{{comments.length}} Comments</p>
+                    <div id="sort-by" (click)="toggleShowSort()" *ngIf="user && user.id == channel.user_id">
+                        <i class="fas fa-sort"></i>
+                        <span>SORT BY</span>
+                        <div id="sort-container">
+                            <div id="most-popular" class="sort-item" (click)="sortComment('popular')">
+                                Top liked comment
+                            </div>
+                            <div id="oldest-added" class="sort-item" (click)="sortComment('newest')">
+                                Newest
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="watch-comment-form">
+                    <div id="comment-form-left">
+                        <img src="{{ user.photourl }}" alt="" *ngIf="user">
+                        <div class="img-alt" *ngIf="!user"></div>
+                    </div>
+                    <div id="comment-form-right">
+                        <input type="text" name="input-comment" id="input-comment" [value]="inputComment" 
+                            (input)="inputComment = $event.target.value" placeholder="Add a public comment..">
+                        <div class="submit-comment-form">
+                            <div class="cancel-btn">
+                                CANCEL
+                            </div>
+                            <div class="save-btn" [style.backgroundColor]="inputComment != ''? 'rgb(0, 87, 187)' : '#afafaf'" (click)="createComment()">
+                                COMMENT
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="watch-comment-container">
+                <div class="video-comments" *ngFor="let com of comments, let i = index">
+                    <app-comment [comment]="com" (act)="likeDislikeComment($event)" *ngIf="showComment(com)"></app-comment>
+                </div>
+                <div class="comment-scroll"></div>
+            </div>
+        </div>
+    </div>
+    <div id="watch-page-right">
+        <div id="queue-box-container" *ngIf="queueVideos.length > 0 || playlistVideos.length > 0">
+            <div id="queue-box-top" (click)="toggleShowQueue()">
+                <div id="queue-box-top-left">
+                    <div>
+                        <p *ngIf="!playlist || queueVideos.length > 0">Queue</p>
+                        <p *ngIf="playlist && queueVideos.length == 0">{{ playlist.name }}</p>
+                    </div>
+                    <div>
+                        {{ getQueueLength() }}
+                    </div>
+                </div>
+                <div id="queue-box-top-right">
+                    <i class="fas fa-angle-up" *ngIf="showQueue"></i>
+                    <i class="fas fa-angle-down" *ngIf="!showQueue"></i>
+                </div>
+            </div>
+            <div id="queue-box-content" *ngIf="showQueue">
+                <div class="queue-list-container" *ngFor="let vi of playlistVideos, let i = index">
+                    <app-queue-list [video]="vi" [idx]="i" [playlist]="playlist" 
+                    [selected]="checkSelectedQueue(i)"></app-queue-list>
+                </div>
+                <div class="queue-list-container" *ngFor="let vi of queueVideos, let i = index">
+                    <app-queue-list [video]="vi" [idx]="i + playlistVideos.length"
+                    [selected]="checkSelectedQueue(i + playlistVideos.length)" 
+                    (delete)="deleteOneQueue($event)"></app-queue-list>
+                </div>
+            </div>
+        </div>
+        <div class="up-next-container">
+            <p id="up-next">Up next</p>
+            <div id="autoplay-container">
+                <p>AUTOPLAY</p>
+                <input type="checkbox" name="autoplay-btn" id="autoplay-btn" style="display: none;"
+                [checked]="autoplay" (change)="toggleAutoplay($event)">
+                <label for="autoplay-btn" id="toggle-btn-container">
+                    <div id="toggle-ball"></div>
+                </label>
+            </div>
+        </div>
+        <div class="related-videos" *ngFor="let vid of videos, let i = index">
+            <app-related-video [video]="vid" *ngIf="i < lastKey"></app-related-video>
+        </div>
+        <div class="footer-scroll"></div>
+    </div>
+</div>
+

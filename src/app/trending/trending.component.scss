@@ -1,0 +1,171 @@
+#trending-page{
+    overflow-x: hidden none;
+    margin-top: 56px;
+    width: 100%;
+    background-color: rgb(245, 245, 245);
+    display: flex;
+    justify-content: center;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    
+    #trending-videos-container{
+        width: 80%;
+        margin-top: 20px;
+        
+        #trending-top{
+            display: flex;
+            align-items: center;
+            padding-bottom: 15px;
+            border-bottom: solid grey 0.5px;
+            
+            #trending-theme{
+                display: flex;
+                background-color: rgb(240, 0, 0);
+                border-radius: 50%;
+                padding: 15px 20px;
+                align-items: center;
+                justify-content: center;
+                     
+                i{
+                    font-size: 50px;
+                    color: rgb(238, 238, 238);
+                }
+            }
+
+            #trending-title{
+                margin-left: 10px;
+                font-size: 1.7rem;
+                color: black;
+                font-weight: bold;
+            }
+        }
+
+        .trending-videos{
+            margin: 10px 0;
+        }
+    }
+}
+
+#edit-video-container{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1000;
+    background-color: rgba(22, 22, 22, 0.712);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 20px;
+
+    .edit-header{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px;
+
+        i{
+            cursor: pointer;
+            padding: 4px;
+        }
+    }
+    
+    .edit-submit{
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        padding: 10px;
+        
+        .edit-done{
+            background-color: rgb(0, 87, 187);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            padding: 7px 25px;
+            border: none;
+            border-radius: 3px;
+            color: white;
+            font-weight: bold;
+
+            &:hover{
+                cursor: pointer;
+            }
+        }
+    }
+
+    #save-playlist{
+        width: max-content;
+        background-color: white;
+        border: solid grey 0.5px;
+        border-radius: 3px;
+        color: rgb(85, 85, 85);
+
+        .playlist-item{
+            padding: 7px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            
+            label{
+
+                span{
+                    margin-left: 5px;
+                    font-size: 15px;
+                }
+            }
+        }
+
+        #create-playlist-container{
+            border-top: solid grey 1px;
+            padding: 7px 10px;
+
+            #create-playlist{
+                cursor: pointer;
+                font-size: 15px;
+                color: rgb(85, 85, 85);
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+                
+                span{
+                    margin-left: 5px;
+                }
+
+                &:active{
+                    background-color: rgb(211, 211, 211);
+                }
+            }
+
+            #create-playlist-form{
+
+                #input-playlist-name{
+                    label{
+                        font-size: 13px;
+                        color: black;
+                    }
+
+                    input{
+                        border: none;
+                        outline: none;
+                        border-bottom: solid grey 2px;
+                        width: 100%;
+                    }
+                }
+
+                #input-playlist-privacy{
+                    margin-top: 10px;
+                    font-size: 13px;
+
+                    p{
+                        margin: 0;
+                        margin-bottom: 10px;
+                        color: black;
+                    }
+
+                    #select-playlist-privacy{
+                        width: 160px;
+                        border: none;
+                        font-size: 13px;
+                        color: rgb(85, 85, 85);
+                        -webkit-appearance: none;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,46 @@
+<div id="video-list-box">
+    <a [routerLink]="['/watch', video.id]" routerLinkActive="router-link-active" >
+        <div id="thumbnail-video-list">
+            <img src="{{ video.thumbnail_path }}" alt="">
+            <div id="video-list-length">
+                <span >{{ duration }}</span>
+            </div>
+        </div>
+    </a>
+    <a [routerLink]="['/watch', video.id]" routerLinkActive="router-link-active" id="center-link">
+        <div id="video-list-center">
+            <p id="video-list-title">
+                {{ video.title }}
+            </p>
+            <div id="video-list-channel">
+                <a href="">
+                    {{ channelName }}
+                </a>
+            </div>
+            <p id="video-list-views">
+                {{ data.shortenThousand(video.views) }} views
+                <span id="symbol"><i class="fas fa-circle"></i></span>
+                <span id="video-list-date">{{ publishDate }}</span>
+            </p>
+            <p id="video-list-description">
+                {{ video.description }}
+            </p>
+        </div>
+    </a>
+    <div id="video-list-right">
+        <button id="video-list-setting-btn" (click)="toggleAddSave()">
+            <i class="fas fa-ellipsis-v" id="video-list-setting"></i>
+        </button>
+        <div class="add-save-video" *ngIf="addSave">
+            <div class="add-save" (click)="addQueue()">
+                <i class="fas fa-stream"></i>
+                <span>Add to Queue</span>
+            </div>
+            <div class="add-save" (click)="doAct('save')">
+                <i class="far fa-plus-square"></i>
+                <span>Save to playlist</span>
+            </div>
+        </div>
+    </div>
+</div>
+    

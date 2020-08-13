@@ -1,0 +1,39 @@
+<div class="post-container">
+    <div class="post-top">
+        <!-- <img src="../../../assets/account.jpg" alt=""> -->
+        <img src="{{ channel.icon_path }}" alt="">
+        <p>
+            <!-- Lukas Tanto -->
+            {{ channel.name }}
+        </p>
+        <p>
+            <!-- 1 week ago -->
+            {{ data.formatPublishDate(ps) }}
+        </p>
+    </div>
+    <div class="post-content">
+        <!-- <img src="../../../assets/account.jpg" alt=""> -->
+        <img src="{{ ps.picture_path }}" alt="" *ngIf="ps.picture_path.length > 0">
+        <p>
+            <!-- Contentnyaa -->
+            {{ ps.content }}
+        </p>
+    </div>
+    <div class="post-activity">
+        
+        <div id="post-like" class="post-likes-count" (click)="likeDislikeVideo('like')">
+            <i class="fas fa-thumbs-up" [style.color]="like? '#1e90ff' : '#929292'"></i>
+            <span id="like-count" [style.color]="like? '#1e90ff' : '#929292'">{{ data.shortenThousand(ps.like) }}</span>
+            <div class="likes-coma">
+                {{ data.shortenComa(ps.like) }} Likes
+            </div>
+        </div>
+        <div id="post-dislike" class="post-likes-count" (click)="likeDislikeVideo('dislike')">
+            <i class="fas fa-thumbs-down" [style.color]="dislike? '#1e90ff' : '#929292'"></i>
+            <span id="dislike-count" [style.color]="dislike? '#1e90ff' : '#929292'">{{ data.shortenThousand(ps.dislike) }}</span>
+            <div class="likes-coma">
+                {{ data.shortenComa(ps.dislike) }} Dislikes
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,32 @@
+<div class="playlist-list">
+    <a [routerLink]="['/watch', firstVideo.id, {playlist: playlist.id}]" routerLinkActive="router-link-active"  class="playlist-search-container">
+        <div class="playlist-icon-container">
+            <img src="{{ firstVideo.thumbnail_path }}" alt="">
+            <div class="playlist-video-count">
+                <div>
+                    {{ playlistVideos.length }}
+                </div>
+                <div>
+                    <i class="fas fa-stream"></i>
+                </div>
+            </div>
+        </div>
+        <div id="playlist-name-subs">
+            <p id="playlist-name">
+                {{ playlist.name }}
+                <!-- Lukas Tanto -->
+            </p>
+            <a [routerLink]="['/channel', channel.channel_link]" routerLinkActive="router-link-active"  class="playlist-channel">
+                {{ channel.name }}
+                <!-- Lukas Tanto -->
+            </a>
+            <p id="playlist-description">
+                {{ playlist.description }}
+            </p>
+            <a [routerLink]="['/playlist', playlist.id]" routerLinkActive="router-link-active"  class="view-full-playlist">
+                VIEW FULL PLAYLIST
+            </a>
+        </div>
+    </a>
+</div>
+    

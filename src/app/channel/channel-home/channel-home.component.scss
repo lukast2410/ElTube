@@ -1,0 +1,236 @@
+#channel-home{
+    display: flex;
+    width: 100%;
+    padding: 1vh 0 0 0;
+
+    p{
+        margin: 0;
+    }
+}
+
+#channel-home-container{
+    margin: 0 9%;
+
+    .section-theme{
+        margin-top: 3.5vh;
+        font-size: 16px;
+        color: black;
+        font-weight: bold;
+        width: 100%;
+        padding-bottom: 15px;
+        border-bottom: solid grey 0.5px;
+        margin-bottom: 2vh;
+    }
+
+    #channel-recent{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .see-all-videos{
+        color: rgb(0, 110, 255);
+        font-size: 14px;
+        cursor: pointer;
+
+        &:hover{
+            color: rgb(0, 26, 255);
+        }
+    }
+
+    .section-videos{
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+
+        .video-box-container{
+            margin: 0 1px;
+        }
+    }
+}
+
+#channel-best-video-section{
+    display: flex;
+    width: 100%;
+    justify-content: flex-start;
+
+    #channel-best-video{
+        video{
+            width: 400px;
+        }
+    }
+
+    #channel-best-video-desc{
+        width: 100%;
+        margin-left: 15px;
+
+        #video-list-title{
+            font-size: 1.4rem;
+            font-weight: bold;
+            max-height: 3.3rem;
+            line-height: 1.6rem;
+            overflow-y: hidden;
+            word-wrap: break-word;
+            color: black;
+        }
+
+        #video-list-channel{
+            margin-top: 5px;
+            color: #959595;
+            font-size: 0.85rem;
+
+            a{
+                text-decoration: none;
+                color: #959595;
+                font-size: 0.85rem;
+            }
+        }
+    
+        #video-list-views{
+            margin-top: 5px;
+            color: #959595;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+    
+            #symbol{
+                font-size: 3px;
+                padding: 4px 5px 0 5px;
+            }
+        }
+
+        #video-list-description{
+            margin-top: 10px;
+            color: #959595;
+            font-size: 0.8rem;
+            max-height: 8rem;
+            word-wrap: break-word;
+            overflow: hidden;
+        }
+    }
+}
+
+#edit-video-container{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1000;
+    background-color: rgba(22, 22, 22, 0.712);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 20px;
+
+    .edit-header{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px;
+
+        i{
+            cursor: pointer;
+            padding: 4px;
+        }
+    }
+    
+    .edit-submit{
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        padding: 10px;
+        
+        .edit-done{
+            background-color: rgb(0, 87, 187);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            padding: 7px 25px;
+            border: none;
+            border-radius: 3px;
+            color: white;
+            font-weight: bold;
+
+            &:hover{
+                cursor: pointer;
+            }
+        }
+    }
+
+    #save-playlist{
+        width: max-content;
+        background-color: white;
+        border: solid grey 0.5px;
+        border-radius: 3px;
+        color: rgb(85, 85, 85);
+
+        .playlist-item{
+            padding: 7px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            
+            label{
+
+                span{
+                    margin-left: 5px;
+                    font-size: 15px;
+                }
+            }
+        }
+
+        #create-playlist-container{
+            border-top: solid grey 1px;
+            padding: 7px 10px;
+
+            #create-playlist{
+                cursor: pointer;
+                font-size: 15px;
+                color: rgb(85, 85, 85);
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+                
+                span{
+                    margin-left: 5px;
+                }
+
+                &:active{
+                    background-color: rgb(211, 211, 211);
+                }
+            }
+
+            #create-playlist-form{
+
+                #input-playlist-name{
+                    label{
+                        font-size: 13px;
+                        color: black;
+                    }
+
+                    input{
+                        border: none;
+                        outline: none;
+                        border-bottom: solid grey 2px;
+                        width: 100%;
+                    }
+                }
+
+                #input-playlist-privacy{
+                    margin-top: 10px;
+                    font-size: 13px;
+
+                    p{
+                        margin: 0;
+                        margin-bottom: 10px;
+                        color: black;
+                    }
+
+                    #select-playlist-privacy{
+                        width: 160px;
+                        border: none;
+                        font-size: 13px;
+                        color: rgb(85, 85, 85);
+                        -webkit-appearance: none;
+                    }
+                }
+            }
+        }
+    }
+}

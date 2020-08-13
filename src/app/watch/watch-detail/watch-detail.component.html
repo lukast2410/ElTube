@@ -1,0 +1,57 @@
+<div id="watch-detail-comp">
+    <div id="video-information">
+        <div id="video-title">
+            <p>{{ video.title }}</p>
+        </div>
+        <div id="detail-information">
+            <div id="detail-information-left">
+                <p id="detail-information-views">
+                    {{ video.views }} views
+                    <!-- 50 views -->
+                    <span class="symbol"><i class="fas fa-circle"></i></span>
+                    <span id="detail-information-date">
+                        {{ publishDate }}
+                        <!-- 5 May 2020 -->
+                    </span>
+                </p>
+            </div>
+            <div id="detail-information-right">
+                <div id="video-like">
+                    <i class="fas fa-thumbs-up"></i>
+                    <span id="like-count">{{ video.like }}</span>
+                </div>
+                <div id="video-dislike">
+                    <i class="fas fa-thumbs-down"></i>
+                    <span id="dislike-count">{{ video.dislike }}</span>
+                </div>
+                <div id="video-share">
+                    <i class="fas fa-share"></i>
+                    <span id="share-button">SHARE</span>
+                </div>
+                <div id="video-playlist">
+                    <i class="fas fa-stream"></i>
+                    <span id="stream-button">SAVE</span>
+                </div>
+            </div>
+        </div>
+        <div id="channel-description">
+            <div id="channel-detail">
+                <div id="channel-detail-left">
+                    <img src="{{ channelIcon }}" alt="">
+                    <div id="channel-name-subs">
+                        <p id="channel-name">{{ channelName }}</p>
+                        <p id="channel-subscriber">{{ channelSubs }} subscribers</p>
+                    </div>
+                </div>
+                <div id="channel-detail-right">
+                    <button id="subscribe-btn">
+                        SUBSCRIBE
+                    </button>
+                </div>
+            </div>
+            <div id="video-description">
+                <p>{{ video.description }}</p>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,23 @@
+<div class="queue-list-background" [style.backgroundColor]="selected? 'rgb(235, 235, 235)' : 'inherit'">
+    <div class="queue-list">
+        <a [routerLink]="['/watch', video.id, playlistLink]" routerLinkActive="router-link-active"  class="queue-list-link">
+            <div class="queue-list-left">
+                <i class="fas fa-grip-lines"></i>
+            </div>
+            <div class="queue-list-thumbnail">
+                <img src="{{ video.thumbnail_path }}" alt="">
+            </div>
+            <div class="queue-list-right">
+                <p class="queue-list-title">
+                    {{ video.title }}
+                </p>
+                <p class="queue-list-channel">
+                    {{ channel.name }}
+                </p>
+            </div>
+        </a>
+        <div class="queue-list-delete" *ngIf="!playlist">
+            <i class="fas fa-trash" (click)="deleteQueue()"></i>
+        </div>
+    </div>
+</div>

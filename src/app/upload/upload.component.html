@@ -1,0 +1,209 @@
+<div id="upload-page">
+    <div id="upload-page-first-section" *ngIf="!dropped">
+        <div id="drop-zone" appDropZone (hovered)="toggleHover($event)" (dropped)="startUpload($event)"
+            [class.hovering]="isHovering">
+            <div id="drop-zone-middle">
+                <label for="input-upload-video" id="upload-video-icon">
+                    <i class="fas fa-upload"></i>
+                </label>
+                <p id="p-topp">Drag and drop video files to upload</p>
+                <p id="p-bottomm">Your videos will be private until you publish them.</p>
+                <input type="file" name="file" id="input-upload-video" (change)="startUpload($event.target.files)">
+                <label for="input-upload-video" id="upload-video-button">SELECT FILES</label>
+            </div>
+        </div>
+    </div>
+    <div id="after-upload" *ngIf="dropped">
+        <div id="upload-page-top">
+            <div id="upload-sections">
+                <div class="upload-section" (click)="changeSection(1)">
+                    <span class="upload-section-icon" *ngIf="first && !error">
+                        1
+                    </span>
+                    <span class="upload-section-icon" *ngIf="!first && !error">
+                        <i class="fas fa-check"></i>
+                    </span>
+                    <span class="upload-section-icon-danger" *ngIf="(first && error) || error">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </span>
+                    <span class="top-section-text">Detail</span>
+                </div>
+                <div id="section-line">
+                    <hr>
+                </div>
+                <div class="upload-section" (click)="changeSection(2)">
+                    <span class="upload-section-icon" [style.backgroundColor]="second? 'rgb(0, 87, 187)' : 'rgb(177, 177, 177)'">
+                        2
+                    </span>
+                    <span class="top-section-text">Visibility</span>
+                </div>
+            </div>
+        </div>
+        <div id="after-upload-center">
+            <div id="detail-form" class="after-upload-form" *ngIf="first">
+                <h1>Details</h1>
+                <div id="title-form" class="detail-first-section-form">
+                    <input type="text" name="title" id="input-title" required [value]="videoTitle" 
+                    (input)="videoTitle = $event.target.value" placeholder="Add a title that describe yout video">
+                    <label for="input-title" id="title-label" class="label">Title (required)</label>
+                </div>
+                <div id="description-form" class="detail-first-section-form">
+                    <textarea name="description" id="input-description" cols="30" rows="10" [value]="videoDesc" 
+                    (input)="videoDesc = $event.target.value" placeholder="Tell viewers about your video"></textarea>
+                    <label for="input-description" id="description-label" class="label">Description</label>
+                </div>
+                <div id="category-form">
+                    <label for="input-category">Category</label><br>
+                    <p>Select your video's category.</p>
+                    <select name="category-list" id="input-category">
+                        <option value="music">Music</option>
+                        <option value="gaming">Gaming</option>
+                        <option value="news">News</option>
+                        <option value="entertainment">Entertainment</option>
+                        <option value="sport">Sport</option>
+                        <option value="travel">Travel</option>
+                    </select>
+                </div>
+                <div id="thumbnail-form">
+                    <label for="" id="thumbnail-title">Thumbnail</label><br>
+                    <p>Select or upload a picture that shows what's in your video.</p>
+                    <label for="input-thumbnail" id="thumbnail-label">
+                        <div id="thumbnail-drop" appDropZone (hovered)="toggleHover($event)" (dropped)="uploadThumbnail($event)"
+                            [class.hovering]="isHovering">
+                            <div id="drop-zone-middle">
+                                <i class="fas fa-camera"></i>
+                            </div>
+                        </div>
+                        <div id="buang-ajaaa" *ngIf="thumbnailSnap | async as snap" style="display: none;">
+                            {{ formatSizeUnits(snap.bytesTransferred) }} of {{ formatSizeUnits(snap.totalBytes) }}
+                        </div>
+                    </label>
+                    <div id="upload-thumbnail-progress" *ngIf="thumbnailPercentage | async as pct">
+                        <progress [value]="pct" max="100"></progress>
+                        {{ formatPercentage(pct) | number }}%
+                    </div>
+                    <input type="file" name="file" id="input-thumbnail" (change)="uploadThumbnail($event.target.files)">
+                </div>
+                <div id="playlist-form">
+                    <label for="" id="playlist-title">Playlist</label>
+                </div>
+                <div id="restriction-form">
+                    <label for="" id="restriction-title">Age Restriction</label>
+                    <p>Do you want to restrict your video to an adult audience?</p>
+                    <input type="radio" name="age-restrict" id="restrict" class="age-restrict-radio" 
+                    value="yes" (change)="selectedRestrict($event)">
+                    <label for="restrict">Yes, restrict my video to viewers over 18</label><br>
+                    <input type="radio" name="age-restrict" id="not-restrict" class="age-restrict-radio" 
+                    value="no" checked (change)="selectedRestrict($event)">
+                    <label for="not-restrict">No, don't restrict my video to viewers over 18 only</label>
+                </div>
+            </div>
+            <div id="visibility-form" class="after-upload-form" *ngIf="second">
+                <h1>Visibility</h1>
+                <div id="privacy-form">
+                    <p id="privacy-subtitle">Choose when to publish and who can see your video </p>
+                    <input type="radio" name="privacy" id="select-publish" class="privacy-radio" 
+                    value="public" checked (change)="selectedPrivacy($event)">
+                    <label for="select-publish">
+                        Public
+                        <p>Everyone can watch your video</p>
+                    </label>
+                    <input type="radio" name="privacy" id="select-private" class="privacy-radio" 
+                    value="private" (change)="selectedPrivacy($event)">
+                    <label for="select-private">
+                        Private
+                        <p>Only you and people you choose can watch your video</p>
+                    </label>
+                    <input type="radio" name="privacy" id="select-schedule" class="privacy-radio" 
+                    value="schedule" (change)="selectedPrivacy($event)">
+                    <label for="select-schedule">
+                        Schedule
+                        <p>Select a date to make your video public</p>
+                    </label>
+                </div>
+                <div id="premium-form">
+                    <p id="premium-subtitle">Choose when to publish and who can see your video </p>
+                    <input type="radio" name="premium" id="not-premium" class="premium-radio" 
+                    value="not-premium" [checked]="(videoPrivacy == 'private' && videoPremium) || !videoPremium" checked (change)="selectedPremium($event)">
+                    <label for="not-premium">
+                        Not Premium
+                        <p>Everyone can watch your video</p>
+                    </label>
+                    <input type="radio" name="premium" id="premium" class="premium-radio" 
+                    value="premium" (change)="selectedPremium($event)">
+                    <label for="premium">
+                        Premium
+                        <p>Only you and premium user can watch your video</p>
+                    </label>
+                </div>
+            </div>
+            <div id="upload-video-result">
+                <div id="before-upload-thumbnail" class="view-side-thumbnail" *ngIf="!thumbnailUploaded">
+                    <span id="view-thumbnail">Please upload the thumbnail...</span>
+                </div>
+                <div id="after-upload-thumbnail" class="view-side-thumbnail" *ngIf="thumbnailUploaded">
+                    <img src="{{ thumbnailPath }}" alt="">
+                </div>
+                <div id="title-desc-side-vew">
+                    <p class="view-side-label">
+                        Title
+                    </p>
+                    <p class="view-side-value">
+                        {{ videoTitle }}
+                    </p>
+                    <p class="view-side-label">
+                        Video Link
+                    </p>
+                    <p class="view-side-value">
+                        <a href="{{ videoLink }}">{{ videoLink }}</a>
+                    </p>
+                </div>
+                <div id="link-length-side-vew">
+                    <!-- <div id="video-result-box" *ngIf="downloadURL as url">
+                        <p [innerText]="url"></p>
+                        <p [innerText]="filename"></p>
+                    </div> -->
+                    <p class="view-side-label">
+                        Video Length
+                    </p>
+                    <p class="view-side-value" id="video-duration">
+                        {{ duration }}
+                    </p>
+                    <p class="view-side-label">
+                        Video Size
+                    </p>
+                    <p class="view-side-value" *ngIf="snapshot | async as snap">
+                        {{ formatSizeUnits(snap.totalBytes) }}
+                    </p>
+                    <p class="view-side-label">
+                        Description
+                    </p>
+                    <p class="view-side-value">
+                        {{ videoDesc }}
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div id="upload-page-bottom">
+            <div id="bottom-left">
+                <!-- <progress [value]="50" max="100"></progress> -->
+                <div id="upload-video-progress" *ngIf="percentage | async as pct">
+                    <progress [value]="pct" max="100"></progress>
+                    {{ formatPercentage(pct) | number }}%
+                </div>
+                <!-- <div id="upload-video-size" *ngIf="snapshot | async as snap">
+                    {{ formatSizeUnits(snap.bytesTransferred) }} of {{ formatSizeUnits(snap.totalBytes) }}
+                </div> -->
+            </div>
+            <div id="bottom-right">
+                <span *ngIf="second && !uploadDone">Please wait until the video uploaded successfully</span>
+                <button class="upload-bottom-button" *ngIf="first" (click)="validateFirstSection()">Next</button>
+                <button class="upload-bottom-button" *ngIf="second" 
+                    [disabled]="!uploadDone" (click)="updateVideo()"
+                    [style.backgroundColor]="uploadDone? 'rgb(0, 87, 187)' : '#afafaf'">
+                    Upload
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

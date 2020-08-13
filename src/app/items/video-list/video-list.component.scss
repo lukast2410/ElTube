@@ -1,0 +1,164 @@
+a{
+    text-decoration: none;
+    outline: none;
+}
+
+#video-list-box{
+    display: flex;
+    width: 100%;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    z-index: 10;
+
+    p{
+        margin: 0;
+    }
+
+    #thumbnail-video-list{
+        position: relative;
+        padding-bottom: 5px;
+
+        img{
+            width: 240px;
+            height: 135px;
+        }
+
+
+        #video-list-length{
+            position: absolute;
+            width: 240px;
+            display: flex;
+            justify-content: flex-end;
+            
+            span{
+                position: absolute;
+                top: -29px;
+                right: 4px;
+                background-color: rgba(0, 0, 0, 0.829);
+                color: rgba(255, 255, 255, 0.918);
+                font-size: 12px;
+                font-weight: bold;
+                padding: 2px 6px;
+                z-index: 0;
+                border-radius: 3px;
+            }
+        }
+    }
+
+    #center-link{
+        width: 100%;
+        margin-left: 15px;
+    }
+
+    #video-list-center{
+        width: 100%;
+
+        #video-list-title{
+            font-size: 1.1rem;
+            font-weight: bold;
+            max-height: 2.7rem;
+            line-height: 1.3rem;
+            overflow-y: hidden;
+            word-wrap: break-word;
+            color: black;
+        }
+
+        #video-list-channel{
+            color: #959595;
+            font-size: 0.85rem;
+
+            a{
+                text-decoration: none;
+                color: #959595;
+                font-size: 0.85rem;
+            }
+        }
+    
+        #video-list-views{
+            color: #959595;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+    
+            #symbol{
+                font-size: 3px;
+                padding: 4px 5px 0 5px;
+            }
+        }
+
+        #video-list-description{
+            margin-top: 5px;
+            color: #959595;
+            font-size: 0.8rem;
+            max-height: 1.75rem;
+            word-wrap: break-word;
+        }
+    }
+
+    #video-list-right{
+        width: 20px;
+        z-index: 10;
+        position: relative;
+    
+        #video-list-setting-btn{
+            display: flex;
+            width: 20px;
+            height: 20px;
+            outline: none;
+            background: none;
+            border: none;
+            justify-content: center;
+            display: flex;
+            align-items: center;
+            z-index: 10;
+            padding: 0;
+    
+            i{
+                font-size: 15px;
+                color: rgb(138, 138, 138);
+            }
+    
+            &:hover{
+    
+                i{
+                    color: rgb(95, 95, 95);
+                }
+            }
+        }
+
+        .add-save-video{
+            position: absolute;
+            top: 15%;
+            right: 0;
+            background-color: white;
+            border: solid #959595 0.5px;
+            border-radius: 2px;
+            padding: 3px 0;
+            width: 130px;
+
+            .add-save{
+                width: 100%;
+                height: max-content;
+                color: rgb(68, 68, 68);
+                cursor: pointer;
+
+                i{
+                    padding: 8px 0;
+                    font-size: 15px;
+                    width: 25px;
+                    text-align: center;
+                }
+
+                span{
+                    margin-left: 3px;
+                    font-size: 12px;
+                    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+                    vertical-align: baseline;
+                }
+
+                &:hover{
+                    background-color: #cccccc;
+                }
+            }
+        }
+    }
+}

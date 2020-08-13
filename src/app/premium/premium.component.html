@@ -1,0 +1,69 @@
+<div id="premium-page">
+    <div id="premium-theme">
+        <i class="fab fa-youtube"></i>
+        <span>ElTube Premium</span>
+    </div>
+    <div id="premium-offers-container">
+        <div class="premium-offer">
+            <div class="offer-icon-container">
+                <div class="premium-offer-icon">
+                    <i class="fab fa-youtube-square"></i>
+                </div>
+            </div>
+            <div class="premium-offer-text">
+                View Premium Videos
+            </div>
+        </div>
+        <div class="premium-offer">
+            <div class="offer-icon-container">
+                <div class="premium-offer-icon">
+                    <i class="fas fa-play-circle"></i>
+                </div>
+            </div>
+            <div class="premium-offer-text">
+                View not yet published or scheduled videos
+            </div>
+        </div>
+        <div class="premium-offer">
+            <div class="offer-icon-container">
+                <div class="premium-offer-icon">
+                    <i class="fas fa-download"></i>
+                </div>
+            </div>
+            <div class="premium-offer-text">
+                Download Videos
+            </div>
+        </div>
+    </div>
+    <div id="billing-plan-container" *ngIf="!premium">
+        <div class="billing-plan-box" (click)="createBilling('monthly')">
+            <p class="billing-plan-title">Monthly</p>
+            <p class="billing-plan-price">IDR 50.000</p>
+            <div class="join-now-container">
+                <div class="join-now-btn">JOIN NOW</div>
+            </div>
+        </div>
+        <div class="billing-plan-box" (click)="createBilling('anually')">
+            <p class="billing-plan-title">Annualy</p>
+            <p class="billing-plan-price">IDR 500.000</p>
+            <div class="join-now-container">
+                <div class="join-now-btn">JOIN NOW</div>
+            </div>
+        </div>
+    </div>
+    <div id="billing-history" *ngIf="premium && billings.length > 0">
+        <div id="billing-history-container">
+            <div id="billing-history-title">Billing History:</div>
+            <div class="billing-history-detail" *ngFor="let b of billings">
+                <p>{{ b.tipe.toString().toUpperCase() }}</p>
+                <p>Payment Date: {{ data.formatDate(b) }}</p>
+            </div>
+        </div>
+    </div>
+    <div id="billing-expired-date" *ngIf="premium && billings.length > 0">
+        <div id="expired-date-container">
+            <p>Expired Date:</p>
+            <p>{{ getExpiredPremiumDate() }}</p>
+        </div>
+    </div>
+</div>

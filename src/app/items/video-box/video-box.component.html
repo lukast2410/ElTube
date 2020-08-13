@@ -1,0 +1,62 @@
+<div id="video-box">
+    <a [routerLink]="['/watch', video.id]" routerLinkActive="router-link-active" >
+        <div id="thumbnail-for-box">
+            <img src="{{ video.thumbnail_path }}" alt="">
+        </div>
+    </a>
+    <div id="video-detail">
+        <div id="video-detail-length">
+            <span >{{ duration }}</span>
+        </div>
+        <div id="video-detail-detail">
+            <a [routerLink]="['/watch', video.id]" routerLinkActive="router-link-active" id="video-detail-a">
+                <div id="video-detail-left">
+                    <img src="{{ channelIcon }}" alt="">
+                </div>
+                <div id="video-detail-center">
+                    <p id="video-detail-title">
+                        {{ video.title }}
+                    </p>
+                    <a [routerLink]="['/channel', channel.channel_link]" routerLinkActive="router-link-active"  id="video-detail-channel">
+                        {{ channelName }}
+                    </a>
+                    <p id="video-detail-views">
+                        {{ data.shortenThousand(video.views) }} views
+                        <span id="symbol"><i class="fas fa-circle"></i></span>
+                        <span id="video-detail-date">{{ publishDate }}</span>
+                    </p>
+                </div>
+            </a>
+            <div id="video-detail-right">
+                <button id="video-detail-setting-btn" (click)="toggleAddSave()">
+                    <i class="fas fa-ellipsis-v" id="video-detail-setting"></i>
+                </button>
+                <div class="add-save-video" *ngIf="addSave">
+                    <div class="add-save" (click)="addQueue()">
+                        <i class="fas fa-stream"></i>
+                        <span>Add to Queue</span>
+                    </div>
+                    <div class="add-save" (click)="doAct('save')">
+                        <i class="far fa-plus-square"></i>
+                        <span>Save to playlist</span>
+                    </div>
+                    <div *ngIf="isUser">
+                        <div class="add-save" (click)="doAct('change')">
+                            <i class="fas fa-exchange-alt"></i>
+                            <span>Change privacy</span>
+                        </div>
+                        <div class="add-save" (click)="doAct('edit')">
+                            <i class="far fa-edit"></i>
+                            <span>Edit video</span>
+                        </div>
+                        <div class="add-save" (click)="doAct('delete')">
+                            <i class="far fa-trash-alt"></i>
+                            <span>Delete video</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    

@@ -1,0 +1,9 @@
+<div id="channel-playlist-page">
+    <div id="channel-playlist-container">
+        <div class="playlist-box-container" *ngFor="let pl of playlists, let i = index">
+            <app-playlist-box [playlist]="pl" *ngIf="i < lastKey && showPlaylist(pl)"></app-playlist-box>
+        </div>
+    </div>
+    <div class="footer-scroll"></div>
+</div>
+

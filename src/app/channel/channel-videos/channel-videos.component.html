@@ -1,0 +1,142 @@
+<div id="channel-videos-page">
+    <div id="channel-videos-container">
+        <div class="section-theme" id="channel-recent">
+            <p>Uploads</p>
+            <div id="sort-by" (click)="showSort()">
+                <i class="fas fa-sort"></i>
+                <span>SORT BY</span>
+                <div id="sort-container">
+                    <div id="most-popular" class="sort-item" (click)="sortVideos('popular')">
+                        Most popular
+                    </div>
+                    <div id="oldest" class="sort-item" (click)="sortVideos('oldest')">
+                        Date added (oldest)
+                    </div>
+                    <div id="newest" class="sort-item" (click)="sortVideos('newest')">
+                        Date added (newest)
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="section-videos">
+            <div class="video-box-container" *ngFor="let vid of videos, let i = index">
+                <app-video-box [video]="vid" [isUser]="isUser" [idx]="i" 
+                (act)="actFromBox($event)" *ngIf="i<lastKey && showVideo(vid)"></app-video-box>
+            </div>
+        </div>
+        <div class="footer-scroll"></div>
+    </div>
+</div>
+<div id="edit-video-container" *ngIf="changePrivacy || editVideo || savePlaylist">
+    <div id="change-video-privacy" *ngIf="changePrivacy">
+        <div class="edit-header">
+            <span>Change privacy</span>
+            <i class="fas fa-times" (click)="toggleChangePrivacy()"></i>
+        </div>
+        <div id="change-privacy">
+            <select name="select-privacy" id="select-privacy" [selectedIndex]="selectVis">
+                <option value="private">Private</option>
+                <option value="public">Public</option>
+            </select>
+            <label for="select-privacy">
+                <i class="fas fa-chevron-down"></i>
+            </label>
+        </div>
+        <div class="edit-submit">
+            <button class="edit-done" (click)="validateChangePrivacy()">
+                Done
+            </button>
+        </div>
+    </div>
+    <div id="change-video-detail" *ngIf="editVideo">
+        <div class="edit-header">
+            <span>Video detail</span>
+            <i class="fas fa-times" (click)="toggleEditVideo()"></i>
+        </div>
+        <div id="edit-detail">
+            <div id="title-form" class="detail-first-section-form">
+                <input type="text" name="title" id="input-title" required [value]="videoTitle" 
+                (input)="videoTitle = $event.target.value" placeholder="Add a title that describe yout video">
+                <label for="input-title" id="title-label" class="label">Title (required)</label>
+            </div>
+            <div id="description-form" class="detail-first-section-form">
+                <textarea name="description" id="input-description" cols="30" rows="10" [value]="videoDesc" 
+                (input)="videoDesc = $event.target.value" placeholder="Tell viewers about your video"></textarea>
+                <label for="input-description" id="description-label" class="label">Description</label>
+            </div>
+            <div id="thumbnail-form">
+                <label for="" id="thumbnail-title">Thumbnail</label><br>
+                <div id="upload-thumbnail-container">
+                    <label for="input-thumbnail" id="thumbnail-label">
+                        <div id="thumbnail-drop" appDropZone (hovered)="toggleHover($event)" (dropped)="uploadThumbnail($event)"
+                            [class.hovering]="isHovering">
+                            <div id="drop-zone-middle">
+                                <i class="fas fa-camera"></i>
+                            </div>
+                        </div>
+                        <div id="buang-ajaaa" *ngIf="thumbnailSnap | async as snap" style="display: none;">
+                            {{ snap.bytesTransferred }} of {{ snap.totalBytes }}
+                        </div>
+                    </label>
+                    <div id="after-upload-thumbnail" class="view-side-thumbnail" *ngIf="thumbnailUploaded">
+                        <img src="{{ thumbnailPath }}" alt="">
+                    </div>
+                </div>
+                <div id="upload-thumbnail-progress" *ngIf="thumbnailPercentage | async as pct">
+                    <progress [value]="pct" max="100"></progress>
+                    span{{ formatPercentage(pct) | number }}%
+                </div>
+                <input type="file" name="file" id="input-thumbnail" (change)="uploadThumbnail($event.target.files)">
+            </div>
+        </div>
+        <div class="edit-submit">
+            <button class="edit-done" (click)="validateEditVideo()"
+            [disabled]="!uploadDone" [style.backgroundColor]="uploadDone? 'rgb(0, 87, 187)' : '#afafaf'">
+                Done
+            </button>
+        </div>
+    </div>
+    <div id="save-playlist" *ngIf="savePlaylist">
+        <div class="edit-header">
+            <span>Save to..</span>
+            <i class="fas fa-times" (click)="toggleSavePlaylist()"></i>
+        </div>
+        <div id="list-playlist">
+            <div class="playlist-item" *ngFor="let pl of playlists, let i = index">
+                <label>
+                    <input type="checkbox" name="playlist-list" (change)="saveToPlaylist($event)" 
+                    [checked]="checkPlaylistList(pl)" [value]="i">
+                    <span [innerText]="pl.name"></span>
+                </label>
+            </div>
+        </div>
+        <div id="create-playlist-container">
+            <div id="create-playlist" *ngIf="!showCreatePlaylist" (click)="toggleShowCreatePlaylist()">
+                <i class="fas fa-plus"></i>
+                <span>Create new playlist</span>
+            </div>
+            <div id="create-playlist-form" *ngIf="showCreatePlaylist">
+                <div id="input-playlist-name">
+                    <label for="playlist-name">Name</label><br>
+                    <input type="text" name="playlist-name" id="playlist-name" [value]="playlistName" 
+                    (input)="playlistName = $event.target.value" placeholder="Enter playlist name..">
+                </div>
+                <div id="input-playlist-privacy">
+                    <label>
+                        <p>Privacy</p>
+                        <select name="select-playlist-privacy" id="select-playlist-privacy" [selectedIndex]="1">
+                            <option value="private">Private</option>
+                            <option value="public">Public</option>
+                        </select>
+                        <i class="fas fa-chevron-down"></i>
+                    </label>
+                </div>
+                <div class="edit-submit">
+                    <button class="edit-done" (click)="validateCreatePlaylist()">
+                        Create
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,205 @@
+<div class="header">
+    <div class="navbar">
+        <div id="start">
+            <button id="list-bars-button" class="basic-button" (click)="barsClicked()">
+                <i class="fas fa-bars"></i>
+            </button>
+            <a href="" id="logo">
+                <img src="../../assets/eltubeLogo.png" alt="" height="20px">
+            </a>
+            <span>ID</span>
+        </div>
+        <div id="center">
+            <div id="form-search-container">
+                <input type="text" name="search" id="search-box" placeholder="Search" (keypress)="checkKeyPress($event)"
+                [value]="inputSearch" (input)="inputSearch = $event.target.value" (keyup)="displayAutoComplete($event)"
+                autocomplete="off">
+                <button id="search-icon" (click)="doSearch()">
+                    <i class="fas fa-search"></i>
+                </button>
+                <div class="auto-complete-form" *ngIf="showAutoComplete">
+                    <ul>
+                        <li *ngFor="let txt of autocomplete, let i = index" (click)="resultSelected(i)">{{ txt.toString() }}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div id="end">
+            <div id="before-login" *ngIf="!loggedIn">
+                <div class="end-buttons">
+                    <button id="setting-button" class="basic-button">
+                        <i class="fas fa-ellipsis-v"></i>
+                    </button>
+                    <div class="hovered">Settings</div>
+                </div>
+                <button id="signin-button" (click)="signin()">
+                    <i class="fab fa-google"></i>
+                    <span>SIGN IN</span>
+                </button>
+            </div>
+            <div id="after-login" *ngIf="loggedIn">
+                <div class="end-buttons">
+                    <button id="create-button" class="basic-button" (click)="showDropDown('create')">
+                        <i class="fas fa-video"></i>
+                    </button>
+                    <div class="hovered">Create</div>
+                    <div id="dropdown-create" *ngIf="createClicked">
+                        <div class="dropdown-box">
+                            <a [routerLink]="['/upload']" routerLinkActive="router-link-active" >
+                                <div id="upload-video" class="create-dropdown-item">
+                                    <i class="fas fa-play"></i>
+                                    <span>Upload video</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="end-buttons">
+                    <button id="notification-button" class="basic-button">
+                        <i class="fas fa-bell"></i>
+                    </button>
+                    <div class="hovered">Notification</div>
+                </div>
+                <div id="account">
+                    <img src="{{ userPhoto }}" alt="" (click)="showDropDown('account')">
+                    <div id="dropdown-account" *ngIf="accountClicked" (click)="showDropDown('account')">
+                        <div id="dropdown-account-top" class="dropdown-account-sections">
+                            <div id="dropdown-account-top-left">
+                                <img src="{{ userPhoto }}" alt="">
+                            </div>
+                            <div id="dropdown-account-top-right">
+                                <span id="account-name">{{ user.name }}</span><br>
+                                <span id="account-email">{{ user.email }}</span>
+                            </div>
+                        </div>
+                        <div id="first-section" class="dropdown-account-sections">
+                            <div id="dropdown-account-channel" class="dropdown-account-items">
+                                <a [routerLink]="['/channel', userChannelLink]" routerLinkActive="router-link-active" >
+                                    <div>
+                                        <i class="fab fa-youtube-square"></i>
+                                        <span>Your channel</span>
+                                    </div>
+                                </a>
+                            </div>
+                            <div id="dropdown-account-sign-out" class="dropdown-account-items">
+                                <a href="/" (click)="signout()">
+                                    <div>
+                                        <i class="fas fa-sign-out-alt"></i>
+                                        <span>Switch Account</span>
+                                    </div>
+                                </a>
+                            </div>
+                            <div id="wide-side-bar-news" class="dropdown-account-items">
+                                <a href="">
+                                    <div>
+                                        <i class="fas fa-globe-asia"></i>
+                                        <span>Location</span>
+                                    </div>
+                                </a>
+                            </div>
+                            <div id="wide-side-bar-sport" class="dropdown-account-items" *ngIf="user">
+                                <a [routerLink]="['/premium']" routerLinkActive="router-link-active" >
+                                    <div>
+                                        <i class="fab fa-youtube"></i>
+                                        <span>Premium</span>
+                                    </div>
+                                </a>
+                            </div>
+                            <div id="wide-side-bar-keyboard" (click)="toggleKeyboardShortcut()">
+                                <div>
+                                    Keyboard Shortcut
+                                </div>
+                            </div>
+                            <div id="restriction-mode-account">
+                                <div id="restriction-mode-container">
+                                    <div id="restrict-text">
+                                        Restriction Mode
+                                    </div>
+                                    <div id="restrict-toggle-container">
+                                        <p id="restriction-mode">On</p>
+                                        <input type="checkbox" name="restriction-mode-btn" id="restriction-mode-btn" style="display: none;"
+                                        [checked]="restrict" (change)="toggleRestrictionMode($event)">
+                                        <label for="restriction-mode-btn" id="toggle-btn-container">
+                                            <div id="toggle-ball"></div>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="cover-all-pages">
+    </div>
+</div>
+<div id="edit-video-container" *ngIf="keyboardShortcut">
+    <div id="keyboard-shortcut" *ngIf="keyboardShortcut">
+        <div class="edit-header">
+            <span>Keyboard Shortcut</span>
+            <i class="fas fa-times" (click)="toggleKeyboardShortcut()"></i>
+        </div>
+        <div class="keyboard-shortcut-item">
+            <div class="keyboard-shortcut-text">
+                Backward 10 seconds
+            </div>
+            <div class="keyboard-shortcut-icon">
+                j
+            </div>
+        </div>
+        <div class="keyboard-shortcut-item">
+            <div class="keyboard-shortcut-text">
+                Play or pause video
+            </div>
+            <div class="keyboard-shortcut-icon">
+                k
+            </div>
+        </div>
+        <div class="keyboard-shortcut-item">
+            <div class="keyboard-shortcut-text">
+                Forward 10 seconds
+            </div>
+            <div class="keyboard-shortcut-icon">
+                l
+            </div>
+        </div>
+        <div class="keyboard-shortcut-item">
+            <div class="keyboard-shortcut-text">
+                Fullscreen mode
+            </div>
+            <div class="keyboard-shortcut-icon">
+                f
+            </div>
+        </div>
+        <div class="keyboard-shortcut-item">
+            <div class="keyboard-shortcut-text">
+                Up the video volume
+            </div>
+            <div class="keyboard-shortcut-icon">
+                <i class="fas fa-arrow-up"></i>
+            </div>
+        </div>
+        <div class="keyboard-shortcut-item">
+            <div class="keyboard-shortcut-text">
+                Down the video volume
+            </div>
+            <div class="keyboard-shortcut-icon">
+                <i class="fas fa-arrow-down"></i>
+            </div>
+        </div>
+        <div id="right-click">
+            <div id="right-click-text">
+                Right click on video player - display options:
+            </div>
+            <div id="display-options">
+                <p>Loop-loop video</p>
+                <p>Copy link, copy URL to the clipboard</p>
+                <p>
+                    Copy link with the current time, copy video URL to the clipboard
+                    with current time
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

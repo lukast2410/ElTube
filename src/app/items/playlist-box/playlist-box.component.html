@@ -1,0 +1,31 @@
+<div id="playlist-box">
+    <a [routerLink]="['/watch', firstVideo.id, { playlist: playlist.id }]" routerLinkActive="router-link-active" >
+        <div id="thumbnail-for-box">
+            <img src="{{ firstVideo.thumbnail_path }}" alt="">
+            <div class="playlist-video-count">
+                <div>
+                    {{ playlistVideos.length }}
+                </div>
+                <div>
+                    <i class="fas fa-stream"></i>
+                </div>
+            </div>
+        </div>
+    </a>
+    <div id="playlist-detail">
+        <div id="playlist-detail-detail">
+            <a [routerLink]="['/watch', firstVideo.id, { playlist: playlist.id }]" routerLinkActive="router-link-active" id="playlist-detail-a">
+                <div id="playlist-detail-center">
+                    <p id="playlist-detail-title">
+                        {{ playlist.name }}
+                        <!-- asjkbdas -->
+                    </p>
+                    <a [routerLink]="['/playlist', playlist.id]" routerLinkActive="router-link-active"  class="view-full-playlist">
+                        VIEW FULL PLAYLIST
+                    </a>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+    

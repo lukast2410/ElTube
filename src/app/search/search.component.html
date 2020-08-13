@@ -1,0 +1,95 @@
+<div id="search-page">
+    <div id="search-videos-container">
+        <div id="search-top">
+            <div id="search-filter">
+                <div id="sort-by" (click)="showSort()">
+                    <i class="fas fa-filter"></i>
+                    <span>FILTER</span>
+                    <div id="sort-container">
+                        <div class="sort-right-left">
+                            Type
+                            <div id="choose-video" class="sort-item" (click)="filterSearch('video')">
+                                Video
+                            </div>
+                            <div id="choose-playlist" class="sort-item" (click)="filterSearch('playlist')">
+                                Playlist
+                            </div>
+                            <div id="choose-channel" class="sort-item" (click)="filterSearch('channel')">
+                                Channel
+                            </div>
+                        </div>
+                        <div class="sort-right-left">
+                            Date
+                            <div id="choose-week" class="sort-item" (click)="filterSearch('thisweek')">
+                                This week
+                            </div>
+                            <div id="choose-month" class="sort-item" (click)="filterSearch('thismonth')">
+                                This month
+                            </div>
+                            <div id="choose-year" class="sort-item" (click)="filterSearch('thisyear')">
+                                This year
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="search-channels" *ngFor="let cn of channels, let i = index">
+            <app-channel-list [channel]="cn" *ngIf="showChannel(cn, i)"></app-channel-list>
+        </div>
+        <div class="search-playlists" *ngFor="let pl of playlists, let i = index">
+            <app-playlist-search [playlist]="pl" *ngIf="showPlaylist(pl, i)"></app-playlist-search>
+        </div>
+        <div class="search-videos" *ngFor="let vid of videos, let i = index">
+            <app-video-list [video]="vid" [idx]="i" (act)="actFromBox($event)"
+            *ngIf="showVideo(vid, i)"></app-video-list>
+        </div>
+        <div class="footer-scroll"></div>
+        <p *ngIf="checkResult()" id="no-result">No Result...</p>
+    </div>
+</div>
+<div id="edit-video-container" *ngIf="savePlaylist">
+    <div id="save-playlist" *ngIf="savePlaylist">
+        <div class="edit-header">
+            <span>Save to..</span>
+            <i class="fas fa-times" (click)="toggleSavePlaylist()"></i>
+        </div>
+        <div id="list-playlist">
+            <div class="playlist-item" *ngFor="let pl of myPlaylists, let i = index">
+                <label>
+                    <input type="checkbox" name="playlist-list" (change)="saveToPlaylist($event)" 
+                    [checked]="checkPlaylistList(pl)" [value]="i">
+                    <span [innerText]="pl.name"></span>
+                </label>
+            </div>
+        </div>
+        <div id="create-playlist-container">
+            <div id="create-playlist" *ngIf="!showCreatePlaylist" (click)="toggleShowCreatePlaylist()">
+                <i class="fas fa-plus"></i>
+                <span>Create new playlist</span>
+            </div>
+            <div id="create-playlist-form" *ngIf="showCreatePlaylist">
+                <div id="input-playlist-name">
+                    <label for="playlist-name">Name</label><br>
+                    <input type="text" name="playlist-name" id="playlist-name" [value]="playlistName" 
+                    (input)="playlistName = $event.target.value" placeholder="Enter playlist name..">
+                </div>
+                <div id="input-playlist-privacy">
+                    <label>
+                        <p>Privacy</p>
+                        <select name="select-playlist-privacy" id="select-playlist-privacy" [selectedIndex]="1">
+                            <option value="private">Private</option>
+                            <option value="public">Public</option>
+                        </select>
+                        <i class="fas fa-chevron-down"></i>
+                    </label>
+                </div>
+                <div class="edit-submit">
+                    <button class="edit-done" (click)="validateCreatePlaylist()">
+                        Create
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

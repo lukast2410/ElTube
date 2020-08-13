@@ -1,0 +1,30 @@
+<div id="channel-community">
+    <div id="channel-community-container">
+        <div id="channel-community-top">
+            <p>Community Posts</p>
+            <div id="create-post" (click)="toggleCreate()" *ngIf="user && channel.user_id == user.id">
+                <i class="far fa-paper-plane"></i>
+                <span>CREATE POST</span>
+            </div>
+        </div>
+        <div id="create-post-form">
+            <textarea name="content-form" id="content-form" cols="30" rows="10" placeholder="Content"></textarea>
+            <div id="submit-post">
+                <label for="input-image" id="select-image">SELECT IMAGE</label>
+                <input type="file" name="input-image" id="input-image" (change)="uploadThumbnail($event.target.files)" style="display: none;">
+                <div id="buang-ajaaa" *ngIf="thumbnailSnap | async as snap" style="display: none;">
+                    {{ formatSizeUnits(snap.bytesTransferred) }} of {{ formatSizeUnits(snap.totalBytes) }}
+                </div>
+                <div id="upload-thumbnail-progress" *ngIf="thumbnailPercentage | async as pct">
+                    <progress [value]="pct" max="100"></progress>
+                    {{ formatPercentage(pct) | number }}%
+                </div>
+                <button id="post-done" (click)="validatePost()">Post</button>
+            </div>
+        </div>
+        <div class="channel-posts" *ngFor="let ps of posts, let i = index">
+            <app-community-post [ps]="ps" [channel]="channel" *ngIf="i<lastKey"></app-community-post>
+        </div>
+        <div class="footer-scroll"></div>
+    </div>
+</div>

@@ -1,0 +1,111 @@
+<div id="channel-home">
+    <div id="channel-home-container">
+        <div class="section-theme">
+            <p>Best Video of this Channel</p>
+        </div>
+        <div id="channel-best-video-section">
+            <div id="channel-best-video">
+                <video src="{{ bestVideo.video_path }}" controls autoplay></video>
+            </div>
+            <div id="channel-best-video-desc">
+                <p id="video-list-title">
+                    {{ bestVideo.title }}
+                    <!-- ajksdbasjkdb -->
+                </p>
+                <div id="video-list-channel">
+                    <a href="">
+                        {{ channel.name }}
+                        <!-- asdkjb -->
+                    </a>
+                </div>
+                <p id="video-list-views">
+                    {{ data.shortenThousand(bestVideo.views) }} views
+                    <!-- aklsdbaskldb -->
+                    <span id="symbol"><i class="fas fa-circle"></i></span>
+                    <span id="video-list-date">
+                        {{ data.formatPublishDate(bestVideo) }}
+                        <!-- asjkdgaskb -->
+                    </span>
+                </p>
+                <p id="video-list-description">
+                    {{ bestVideo.description }}
+                    <!-- askldbaskbasdkbasdkbasdkbasdkbaskdbaskdb aklsh dlkashd lashdlashdlash asklhd asklh las h dkl asdknasdkbasnd asasop asjasd kljasldkj aslk jdasl jlasjd lasjd lasj -->
+                </p>
+            </div>
+        </div>
+        <div class="section-theme" id="channel-recent">
+            <p>Uploads</p>
+            <p class="see-all-videos" (click)="toggleSelectionBar('videos')">See all videos</p>
+        </div>
+        <div class="section-videos">
+            <div class="video-box-container" *ngFor="let vid of recentlyVideos, let i = index">
+                <app-video-box [video]="vid" [idx]="i" (act)="actFromBox($event)"
+                *ngIf="showVideo(vid, 'recent') && i< recentKey"></app-video-box>
+            </div>
+        </div>
+        <div class="section-theme" id="channel-recent">
+            <p>Random Videos</p>
+            <p class="see-all-videos" (click)="toggleSelectionBar('videos')">See all videos</p>
+        </div>
+        <div class="section-videos">
+            <div class="video-box-container" *ngFor="let vid of randomVideos, let i = index">
+                <app-video-box [video]="vid" [idx]="i" (act)="actFromBox($event)"
+                *ngIf="showVideo(vid, 'random') && i < randomKey"></app-video-box>
+            </div>
+        </div>
+        <div class="section-theme" id="channel-recent">
+            <p>Playlists</p>
+            <p class="see-all-videos" (click)="toggleSelectionBar('playlists')">See all playlists</p>
+        </div>
+        <div class="section-videos">
+            <div class="video-box-container" *ngFor="let pl of randomPlaylists, let i = index">
+                <app-playlist-box [playlist]="pl"></app-playlist-box>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="edit-video-container" *ngIf="savePlaylist">
+    <div id="save-playlist" *ngIf="savePlaylist">
+        <div class="edit-header">
+            <span>Save to..</span>
+            <i class="fas fa-times" (click)="toggleSavePlaylist()"></i>
+        </div>
+        <div id="list-playlist">
+            <div class="playlist-item" *ngFor="let pl of playlists, let i = index">
+                <label>
+                    <input type="checkbox" name="playlist-list" (change)="saveToPlaylist($event)" 
+                    [checked]="checkPlaylistList(pl)" [value]="i">
+                    <span [innerText]="pl.name"></span>
+                </label>
+            </div>
+        </div>
+        <div id="create-playlist-container">
+            <div id="create-playlist" *ngIf="!showCreatePlaylist" (click)="toggleShowCreatePlaylist()">
+                <i class="fas fa-plus"></i>
+                <span>Create new playlist</span>
+            </div>
+            <div id="create-playlist-form" *ngIf="showCreatePlaylist">
+                <div id="input-playlist-name">
+                    <label for="playlist-name">Name</label><br>
+                    <input type="text" name="playlist-name" id="playlist-name" [value]="playlistName" 
+                    (input)="playlistName = $event.target.value" placeholder="Enter playlist name..">
+                </div>
+                <div id="input-playlist-privacy">
+                    <label>
+                        <p>Privacy</p>
+                        <select name="select-playlist-privacy" id="select-playlist-privacy" [selectedIndex]="1">
+                            <option value="private">Private</option>
+                            <option value="public">Public</option>
+                        </select>
+                        <i class="fas fa-chevron-down"></i>
+                    </label>
+                </div>
+                <div class="edit-submit">
+                    <button class="edit-done" (click)="validateCreatePlaylist()">
+                        Create
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
