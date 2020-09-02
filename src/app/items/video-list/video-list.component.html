@@ -13,7 +13,7 @@
                 {{ video.title }}
             </p>
             <div id="video-list-channel">
-                <a href="">
+                <a [routerLink]="['/channel', channel.channel_link]" routerLinkActive="router-link-active">
                     {{ channelName }}
                 </a>
             </div>

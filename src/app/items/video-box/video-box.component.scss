@@ -47,6 +47,26 @@ a{
             border-radius: 3px;
         }
     }
+
+    #video-premium-label{
+        position: absolute;
+        width: 82px; 
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        font-size: 12px;
+        top: -154px;
+        right: 4px;
+        color: rgba(255, 217, 0, 0.918);
+        background-color: rgba(0, 0, 0, 0.829);
+        border-radius: 3px;
+        
+        span{
+            font-weight: bold;
+            padding: 2px 6px;
+            z-index: 0;
+        }
+    }
     
     p{
         margin: 0;

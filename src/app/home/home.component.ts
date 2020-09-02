@@ -110,6 +110,15 @@ export class HomeComponent implements OnInit {
       this.restrict = this.user.restricted.toString();
       console.log(this.user);
     }
+    let some = {
+      year: new Date().getFullYear(),
+      month: new Date().getMonth() + 1,
+      day: new Date().getDate(),
+      hours: new Date().getHours(),
+      minutes: new Date().getMinutes(),
+      seconds: (new Date().getSeconds()) - 4
+    }
+    console.log(this.data.formatPublishDate(some))
     this.getVideos();
   }
 

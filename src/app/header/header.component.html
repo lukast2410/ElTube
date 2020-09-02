@@ -62,7 +62,7 @@
                 </div>
                 <div id="account">
                     <img src="{{ userPhoto }}" alt="" (click)="showDropDown('account')">
-                    <div id="dropdown-account" *ngIf="accountClicked" (click)="showDropDown('account')">
+                    <div id="dropdown-account" *ngIf="accountClicked">
                         <div id="dropdown-account-top" class="dropdown-account-sections">
                             <div id="dropdown-account-top-left">
                                 <img src="{{ userPhoto }}" alt="">
@@ -73,7 +73,7 @@
                             </div>
                         </div>
                         <div id="first-section" class="dropdown-account-sections">
-                            <div id="dropdown-account-channel" class="dropdown-account-items">
+                            <div id="dropdown-account-channel" class="dropdown-account-items" (click)="showDropDown('account')">
                                 <a [routerLink]="['/channel', userChannelLink]" routerLinkActive="router-link-active" >
                                     <div>
                                         <i class="fab fa-youtube-square"></i>
@@ -81,7 +81,7 @@
                                     </div>
                                 </a>
                             </div>
-                            <div id="dropdown-account-sign-out" class="dropdown-account-items">
+                            <div id="dropdown-account-sign-out" class="dropdown-account-items" (click)="showDropDown('account')">
                                 <a href="/" (click)="signout()">
                                     <div>
                                         <i class="fas fa-sign-out-alt"></i>
@@ -89,7 +89,7 @@
                                     </div>
                                 </a>
                             </div>
-                            <div id="wide-side-bar-news" class="dropdown-account-items">
+                            <div id="wide-side-bar-news" class="dropdown-account-items" (click)="showDropDown('account')">
                                 <a href="">
                                     <div>
                                         <i class="fas fa-globe-asia"></i>
@@ -97,7 +97,7 @@
                                     </div>
                                 </a>
                             </div>
-                            <div id="wide-side-bar-sport" class="dropdown-account-items" *ngIf="user">
+                            <div id="wide-side-bar-sport" class="dropdown-account-items" *ngIf="user" (click)="showDropDown('account')">
                                 <a [routerLink]="['/premium']" routerLinkActive="router-link-active" >
                                     <div>
                                         <i class="fab fa-youtube"></i>
@@ -105,7 +105,7 @@
                                     </div>
                                 </a>
                             </div>
-                            <div id="wide-side-bar-keyboard" (click)="toggleKeyboardShortcut()">
+                            <div id="wide-side-bar-keyboard" (click)="toggleKeyboardShortcut()" (click)="showDropDown('account')">
                                 <div>
                                     Keyboard Shortcut
                                 </div>

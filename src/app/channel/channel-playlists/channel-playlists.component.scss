@@ -10,6 +10,16 @@
     #channel-playlist-container{
         margin: 0 5%;
         width: 100%;
+
+        .section-playlists{
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .playlist-box-container{
+            margin: 0 1vw;
+        }
     }
 }
 

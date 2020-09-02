@@ -155,7 +155,6 @@ export class UploadComponent implements OnInit, OnChanges {
 
         video.src = URL.createObjectURL(file);
 
-
         this.filename = "video";
         this.dropped = true;
         const path = `video/${new Date().getTime()}_${this.filename}`;

@@ -442,6 +442,9 @@ export class PlaylistComponent implements OnInit, OnChanges {
   }
   
   updatePlaylist(){
+    if(this.playlistName == ''){
+      this.playlistName = this.playlist.name;
+    }
     this.apollo.mutate({
       mutation: gql `
         mutation UpdatePlaylist($id: ID!, $user_id: Int!, $name: String!, $views: Int!, $description: String!, 
@@ -532,6 +535,9 @@ export class PlaylistComponent implements OnInit, OnChanges {
             day
             month
             year
+            hours
+            minutes
+            seconds
             video_path
             thumbnail_path
             category

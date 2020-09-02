@@ -198,9 +198,9 @@ export class ChannelVideosComponent implements OnInit {
     if(sortBy == "popular"){
       this.videos.sort((a, b) => (parseInt(a.views) > parseInt(b.views)) ? -1 : 1)
     }else if(sortBy == "oldest"){
-      this.videos.sort((a, b) => (parseInt(a.id) > parseInt(b.id)) ? 1 : -1)
+      this.videos.sort((a, b) => (new Date(a.year, a.month-1, a.day) > new Date(b.year, b.month-1, b.day)) ? 1 : -1);
     }else if(sortBy == "newest"){
-      this.videos.sort((a, b) => (parseInt(a.id) > parseInt(b.id)) ? -1 : 1)
+      this.videos.sort((a, b) => (new Date(a.year, a.month-1, a.day) > new Date(b.year, b.month-1, b.day)) ? -1 : 1);
     }
   }
 

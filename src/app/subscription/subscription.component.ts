@@ -151,6 +151,9 @@ export class SubscriptionComponent implements OnInit {
             day
             month
             year
+            hours
+            minutes
+            seconds
             video_path
             thumbnail_path
             category

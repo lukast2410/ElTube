@@ -43,7 +43,7 @@
             <div id="detail-form" class="after-upload-form" *ngIf="first">
                 <h1>Details</h1>
                 <div id="title-form" class="detail-first-section-form">
-                    <input type="text" name="title" id="input-title" required [value]="videoTitle" 
+                    <input type="text" name="title" id="input-title" [value]="videoTitle" 
                     (input)="videoTitle = $event.target.value" placeholder="Add a title that describe yout video">
                     <label for="input-title" id="title-label" class="label">Title (required)</label>
                 </div>
